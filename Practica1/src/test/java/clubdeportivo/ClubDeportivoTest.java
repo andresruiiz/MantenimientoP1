@@ -264,6 +264,54 @@ class ClubDeportivoTest {
             club.matricular(actividad, npersonas);
         });
     }
-
     
+    @Test
+    @DisplayName("Matricular personas en una actividad con grupo nulo")
+    void testMatricularActividadConGrupoNulo() {
+        // Arrange
+        String actividad = "Bailar";
+        int npersonas = 5;
+
+        // Act & Assert
+        assertThrows(ClubException.class, () -> club.matricular(actividad, npersonas));
+    }
+
+    @Test
+    @DisplayName("Matricular personas en una actividad sin afectar a otra actividad")
+    void testMatricularSinAfectarOtraActividad() throws ClubException {
+        // Arrange
+        String[] datos1 = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
+        String[] datos2 = {"Actividad 2", "Yoga", "15", "10", "10.0"};
+        String actividadMatriculada = "Entrenamiento";
+        int npersonas = 3;
+        int ExpectedPlazasLibresOtraActividad = 5;
+
+        // Act
+        club.anyadirActividad(datos1);
+        club.anyadirActividad(datos2);
+        club.matricular(actividadMatriculada, npersonas);
+        int plazasLibresOtraActividad = club.plazasLibres("Yoga");
+
+        // Assert
+        assertEquals(ExpectedPlazasLibresOtraActividad, plazasLibresOtraActividad);
+    }
+
+    @Test
+    @DisplayName("Matricular personas hasta llenar todas las plazas disponibles")
+    void testMatricularHastaLlenarPlazas() throws ClubException {
+        // Arrange
+        String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
+        String actividad = "Entrenamiento";
+        int npersonas = 5;
+        int ExpectedPlazasLibres = 0;
+
+        // Act
+        club.anyadirActividad(datos);
+        club.matricular(actividad, npersonas);
+        int plazasLibres = club.plazasLibres(actividad);
+
+        // Assert
+        assertEquals(ExpectedPlazasLibres, plazasLibres);
+    }
+
 }

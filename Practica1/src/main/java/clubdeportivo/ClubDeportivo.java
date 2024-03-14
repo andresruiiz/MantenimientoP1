@@ -80,7 +80,7 @@ public class ClubDeportivo {
 		}
 		int i = 0;
 		while (i < ngrupos && npersonas > 0) {
-			if (actividad.equals(grupos[i].getActividad())) { // ADDME: added null check
+			if (actividad.equals(grupos[i].getActividad())) { 
 				int plazasGrupo = grupos[i].plazasLibres();
 				if (npersonas >= plazasGrupo) {
 					grupos[i].matricular(plazasGrupo);
