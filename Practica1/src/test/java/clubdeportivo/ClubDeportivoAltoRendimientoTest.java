@@ -1,9 +1,6 @@
+package clubdeportivo;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
 
-import com.google.errorprone.annotations.ThreadSafe;
-
-import clubdeportivo.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClubDeportivoAltoRendimientoTest {
@@ -38,7 +35,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con maximo negativo")
-    void testConstructorConMaximoNegativo() {
+    void testCrearClubConMaximoNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = -10;
@@ -50,7 +47,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con incremento negativo")
-    void testConstructorConIncrementoNegativo() {
+    void testCrearClubConIncrementoNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = 10;
@@ -62,7 +59,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club se crea correctamente con tamaño")
-    void testConstructorConTam() throws ClubException {
+    void testCrearClubConTam() throws ClubException {
         // Arrange
         ClubDeportivoAltoRendimiento clubPrueba = null;
         String nombre = "Club";
@@ -76,11 +73,12 @@ public class ClubDeportivoAltoRendimientoTest {
 
         // Assert
         assertEquals(expectedToString, clubPrueba.toString());
+        assertNotNull(clubPrueba);
     }
 
     @Test
     @DisplayName("Comprobar que el club lanza excepción con tamaño negativo")
-    void testConstructorConTamNegativo() {
+    void testCrearClubConTamNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = -10;
@@ -93,7 +91,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club lanza excepción con maximo negativo")
-    void testConstructorConMaximoNegativoConTam() {
+    void testCrearClubConMaximoNegativoConTam() {
         // Arrange
         String nombre = "Club";
         int tam = 10;
@@ -159,10 +157,10 @@ public class ClubDeportivoAltoRendimientoTest {
     @DisplayName("Comprobar que se lanza excepción al añadir actividad con formato de número incorrecto")
     void testAnyadirActividadConFormatoNumeroIncorrecto() {
         // Arrange
-        String[] datos = {"codigo", "actividad", "10", "5", "10.0"};
+        String[] datos = {"codigo", "actividad", "10", "5", "no es un número"};
 
         // Act y Assert
-        assertDoesNotThrow(() -> club.anyadirActividad(datos));
+        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
     
     @Test

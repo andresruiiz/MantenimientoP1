@@ -314,4 +314,24 @@ class ClubDeportivoTest {
         assertEquals(ExpectedPlazasLibres, plazasLibres);
     }
 
+    @Test
+    @DisplayName("Matricular personas en múltiples grupos de una actividad")
+    void testMatricularMultiplesGrupos() throws ClubException {
+        // Arrange
+        String[] datos1 = {"Actividad 1", "Entrenamiento", "5", "2", "10.0"};
+        String[] datos2 = {"Actividad 2", "Entrenamiento", "5", "2", "10.0"};
+        String actividad = "Entrenamiento";
+        int npersonas = 3;
+        int ExpectedPlazasLibres = 3;
+
+        // Act
+        club.anyadirActividad(datos1);
+        club.anyadirActividad(datos2);
+        club.matricular(actividad, npersonas);
+        int plazasLibres = club.plazasLibres(actividad);
+
+        // Assert
+        assertEquals(ExpectedPlazasLibres, plazasLibres);
+    }
+
 }
