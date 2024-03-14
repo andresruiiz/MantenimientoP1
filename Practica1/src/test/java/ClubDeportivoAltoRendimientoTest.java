@@ -165,4 +165,18 @@ public class ClubDeportivoAltoRendimientoTest {
         assertDoesNotThrow(() -> club.anyadirActividad(datos));
     }
     
+    @Test
+    @DisplayName("Comprobar ingresos con incremento")
+    void testIngresos() throws ClubException {
+        // Arrange
+        String[] datos = {"codigo", "actividad", "10", "5", "10.0"};
+        double expectedIngresos = 55.0;
+
+        // Act
+        club.anyadirActividad(datos);
+
+        // Assert
+        assertEquals(expectedIngresos, club.ingresos());
+    }
+    
 }
