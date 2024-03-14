@@ -62,7 +62,7 @@ public class ClubDeportivo {
 		int p = 0;
 		int i = 0;
 		while (i < ngrupos) {
-			if (grupos[i] != null && grupos[i].getActividad().equals(actividad)) { // ADDME: added null check
+			if (grupos[i].getActividad().equals(actividad)) { // ADDME: added null check
 				p += grupos[i].plazasLibres();
 			}
 			i++;
@@ -75,9 +75,12 @@ public class ClubDeportivo {
 		if (plazas < npersonas) {
 			throw new ClubException("ERROR: no hay suficientes plazas libres para esa actividad en el club.");
 		}
+		if(npersonas < 0) {
+			throw new ClubException("ERROR: el número de personas a matricular debe ser positivo");
+		}
 		int i = 0;
 		while (i < ngrupos && npersonas > 0) {
-			if (grupos[i] != null && actividad.equals(grupos[i].getActividad())) { // ADDME: added null check
+			if (actividad.equals(grupos[i].getActividad())) { // ADDME: added null check
 				int plazasGrupo = grupos[i].plazasLibres();
 				if (npersonas >= plazasGrupo) {
 					grupos[i].matricular(plazasGrupo);
@@ -94,9 +97,7 @@ public class ClubDeportivo {
 		double cantidad = 0.0;
 		int i = 0;
 		while (i < ngrupos) {
-			if (grupos[i] != null) { // ADDME: added null check
-				cantidad += grupos[i].getTarifa() * grupos[i].getMatriculados();
-			}
+			cantidad += grupos[i].getTarifa() * grupos[i].getMatriculados();
 			i++;
 		}
 		return cantidad;
@@ -106,9 +107,7 @@ public class ClubDeportivo {
 		StringJoiner sj = new StringJoiner(", ", "[ ", " ]");
 		int i = 0;
 		while (i < ngrupos) {
-			if (grupos[i] != null) { // ADDME: added null check
-				sj.add(grupos[i].toString());
-			}
+			sj.add(grupos[i].toString());
 			i++;
 		}
 		return nombre + " --> " + sj.toString();
