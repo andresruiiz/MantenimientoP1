@@ -20,7 +20,7 @@ public class ClubDeportivo {
 		grupos = new Grupo[n];
 	}
 
-	private int buscar(Grupo g) {
+	private int buscar(Grupo g) { //No podemos llegar al 100% ya que este método es privado
 		int i = 0;
 		while (i < ngrupos && !g.equals(grupos[i])) {
 			i++;
