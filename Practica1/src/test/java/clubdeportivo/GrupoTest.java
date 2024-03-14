@@ -130,7 +130,7 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Comprobar que el método lanza excepción con plazas negativas")
+    @DisplayName("Comprobar que el método actualizarPlazads lanza excepción con plazas negativas")
     void testActualizarPlazasConPlazasNegativas() {
         // Arrange
         int nplazas = -20;
@@ -140,7 +140,7 @@ public class GrupoTest {
     }
     
     @Test
-    @DisplayName("Comprobar que el método lanza excepción con plazas menores que matriculados")
+    @DisplayName("Comprobar que el método actualizarPlazas lanza excepción con plazas menores que matriculados")
     void testActualizarPlazasConPlazasMenoresQueMatriculados() {
         // Arrange
         int nplazas = 4;
