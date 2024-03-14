@@ -177,4 +177,6 @@ public class ClubDeportivoAltoRendimientoTest {
         assertEquals(expectedIngresos, club.ingresos());
     }
     
+    
+
 }

@@ -9,12 +9,10 @@ import org.junit.jupiter.api.function.Executable;
 class ClubDeportivoTest {
 
     private ClubDeportivo club;
-    private Grupo grupo;
 
     @BeforeEach
     void setUp() throws ClubException {
         club = new ClubDeportivo("Club Test");
-        grupo = new Grupo("Actividad 1", "Entrenamiento", 10, 5, 10.0);
     }
 
 
