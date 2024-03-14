@@ -7,12 +7,8 @@ public class ClubDeportivoAltoRendimientoTest {
     ClubDeportivoAltoRendimiento club;
 
     @BeforeEach
-    void setup() {
-        try {
-            club = new ClubDeportivoAltoRendimiento("Club", 10, 10.0);
-        } catch (ClubException e) {
-            fail("Error en la creación del club");
-        }
+    void setup() throws ClubException {
+        club = new ClubDeportivoAltoRendimiento("Club", 10, 10.0);
     }
 
     @Test
