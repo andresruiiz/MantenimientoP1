@@ -40,11 +40,13 @@ public class ClubDeportivo {
 			anyadirActividad(g);
 		} catch (NumberFormatException e) {
 			throw new ClubException("ERROR: formato de número incorrecto");
+		} catch (ArrayIndexOutOfBoundsException e) { // ADDME: added to handle array index out of bounds exception
+			throw new ClubException("ERROR: datos insuficientes para añadir actividad");
 		}
 	}
 
 	public void anyadirActividad(Grupo g) throws ClubException {
-		if (g==null){ // ADDME: anaydido para comprobar los grupos nulos
+		if (g == null) {
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
 		int pos = buscar(g);
@@ -60,7 +62,7 @@ public class ClubDeportivo {
 		int p = 0;
 		int i = 0;
 		while (i < ngrupos) {
-			if (grupos[i].getActividad().equals(actividad)) {
+			if (grupos[i] != null && grupos[i].getActividad().equals(actividad)) { // ADDME: added null check
 				p += grupos[i].plazasLibres();
 			}
 			i++;
@@ -75,7 +77,7 @@ public class ClubDeportivo {
 		}
 		int i = 0;
 		while (i < ngrupos && npersonas > 0) {
-			if (actividad.equals(grupos[i].getActividad())) {
+			if (grupos[i] != null && actividad.equals(grupos[i].getActividad())) { // ADDME: added null check
 				int plazasGrupo = grupos[i].plazasLibres();
 				if (npersonas >= plazasGrupo) {
 					grupos[i].matricular(plazasGrupo);
@@ -92,7 +94,9 @@ public class ClubDeportivo {
 		double cantidad = 0.0;
 		int i = 0;
 		while (i < ngrupos) {
-			cantidad += grupos[i].getTarifa() * grupos[i].getMatriculados();
+			if (grupos[i] != null) { // ADDME: added null check
+				cantidad += grupos[i].getTarifa() * grupos[i].getMatriculados();
+			}
 			i++;
 		}
 		return cantidad;
@@ -102,7 +106,9 @@ public class ClubDeportivo {
 		StringJoiner sj = new StringJoiner(", ", "[ ", " ]");
 		int i = 0;
 		while (i < ngrupos) {
-			sj.add(grupos[i].toString());
+			if (grupos[i] != null) { // ADDME: added null check
+				sj.add(grupos[i].toString());
+			}
 			i++;
 		}
 		return nombre + " --> " + sj.toString();
