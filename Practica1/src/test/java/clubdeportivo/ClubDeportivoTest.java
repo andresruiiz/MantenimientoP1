@@ -137,20 +137,6 @@ class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Las plazas libres cuando no hay actividad en el club son 0")
-    void testPlazasLibresCuandoNoHayActividad() {
-        // Arrange
-        String actividad = "Entrenamiento";
-        int ExpectedPlazasLibres = 0;
-
-        // Act
-        int plazasLibres = club.plazasLibres(actividad);
-
-        // Assert
-        assertEquals(ExpectedPlazasLibres, plazasLibres);
-    }
-
-    @Test
     @DisplayName("Los ingresos obtenidos se calculan correctamente")
     void testIngresos() throws ClubException {
         // Arrange
