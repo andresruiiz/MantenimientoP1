@@ -1,3 +1,8 @@
+/*
+ * @author 1: Nicoló Melley
+ * @author 2: Andrés Ruiz Sánchez
+ */
+
 package clubdeportivo;
 import org.junit.jupiter.api.*;
 
@@ -13,7 +18,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club se crea correctamente sin tamaño")
-    void testCrearClubSinTam() throws ClubException {
+    void creacionCorrectaCuandoNoHayTam() throws ClubException {
         // Arrange
         ClubDeportivoAltoRendimiento clubPrueba = null;
         String nombre = "Club";
@@ -31,7 +36,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con maximo negativo")
-    void testCrearClubConMaximoNegativo() {
+    void lanzaExcepcionCuandoMaximoEsNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = -10;
@@ -43,7 +48,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con incremento negativo")
-    void testCrearClubConIncrementoNegativo() {
+    void lanzaExcepcionCuandoIncrementoEsNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = 10;
@@ -55,7 +60,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club se crea correctamente con tamaño")
-    void testCrearClubConTam() throws ClubException {
+    void creacionCorrectaCuandoHayTam() throws ClubException {
         // Arrange
         ClubDeportivoAltoRendimiento clubPrueba = null;
         String nombre = "Club";
@@ -74,7 +79,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club lanza excepción con tamaño negativo")
-    void testCrearClubConTamNegativo() {
+    void lanzaExcepcionCuandoTamanoEsNegativo() {
         // Arrange
         String nombre = "Club";
         int tam = -10;
@@ -87,7 +92,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club lanza excepción con maximo negativo")
-    void testCrearClubConMaximoNegativoConTam() {
+    void lanzaExcepcionCuandoMaximoEsNegativoYHayTamano() {
         // Arrange
         String nombre = "Club";
         int tam = 10;
@@ -100,7 +105,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que el club lanza excepción con incremento negativo")
-    void testConstructorConIncrementoNegativoConTam() {
+    void lanzaExcepcionCuandoIncrementoEsNegativoYHayTamano() {
         // Arrange
         String nombre = "Club";
         int tam = 10;
@@ -113,7 +118,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que se añade una actividad correctamente")
-    void testAnyadirActividad() throws ClubException {
+    void anyadeActividadCorrectamente() throws ClubException {
         // Arrange
         String[] datos = {"codigo", "actividad", "10", "5", "10.0"};
         String expectedToString = "Club --> [ (codigo - actividad - 10.0 euros - P:10 - M:5) ]";
@@ -127,7 +132,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que se añade una actividad correctamente con plazas mayores que maximo")
-    void testAnyadirActividadConPlazasMayoresQueMaximo() throws ClubException {
+    void anyadeActividadCorrectamenteCuandoPlazasSonMayoresQueMaximo() throws ClubException {
         // Arrange
         String[] datos = {"codigo", "actividad", "20", "5", "10.0"};
         String expectedToString = "Club --> [ (codigo - actividad - 10.0 euros - P:10 - M:5) ]";
@@ -141,7 +146,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que se lanza excepción al añadir actividad con datos insuficientes")
-    void testAnyadirActividadConDatosInsuficientes() {
+    void lanzaExcepcionCuandoAnyadeActividadConDatosInsuficientes() {
         // Arrange
         String[] datos = {"codigo", "actividad", "10", "5"};
 
@@ -151,7 +156,7 @@ public class ClubDeportivoAltoRendimientoTest {
 
     @Test
     @DisplayName("Comprobar que se lanza excepción al añadir actividad con formato de número incorrecto")
-    void testAnyadirActividadConFormatoNumeroIncorrecto() {
+    void lanzaExcepcionCuandoAnyadeActividadConFormatoNumeroIncorrecto() {
         // Arrange
         String[] datos = {"codigo", "actividad", "10", "5", "no es un número"};
 
@@ -161,7 +166,7 @@ public class ClubDeportivoAltoRendimientoTest {
     
     @Test
     @DisplayName("Comprobar ingresos con incremento")
-    void testIngresos() throws ClubException {
+    void calculaIngresosCorrectamenteConIncremento() throws ClubException {
         // Arrange
         String[] datos = {"codigo", "actividad", "10", "5", "10.0"};
         double expectedIngresos = 55.0;
@@ -172,7 +177,4 @@ public class ClubDeportivoAltoRendimientoTest {
         // Assert
         assertEquals(expectedIngresos, club.ingresos());
     }
-    
-    
-
 }

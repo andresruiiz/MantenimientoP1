@@ -1,3 +1,8 @@
+/*
+ * @author 1: Nicoló Melley
+ * @author 2: Andrés Ruiz Sánchez
+ */
+
 package clubdeportivo;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +23,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Comprobar que el club se crea correctamente")
-    void testCrearClub() throws ClubException {
+    void clubSeCreaCorrectamente() throws ClubException {
         // Arrange
         ClubDeportivo clubTest = null;
         String nombre = "Club Test";
@@ -33,7 +38,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Comprobar que al introducir un numero incorrecto de grupos se lanza una excepcion")
-    void testCrearClubConNumeroGruposIncorrecto() {
+    void lanzaExcepcionCuandoNumeroDeGruposEsIncorrecto() {
         // Arrange
         String nombre = "Club Test";
         int n = 0;
@@ -44,7 +49,7 @@ class ClubDeportivoTest {
     
     @Test
     @DisplayName("Añadir una actividad al club")
-    void testAnyadirActividad() throws ClubException {
+    void actividadSeAnyadeCorrectamente() throws ClubException {
         // Arrange
         String ExpectedToString = "Club Test --> [ (Actividad 1 - Entrenamiento - 10.0 euros - P:10 - M:5) ]";
 
@@ -57,7 +62,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Añadir una actividad al club con datos insuficientes")
-    void testAnyadirActividadConDatosInsuficientes() {
+    void lanzaExcepcionCuandoSeAnyadeUnaActividadConDatosInsuficientes() {
         // Arrange
         String[] datos = new String[]{"Actividad 1", "Entrenamiento", "10", "5"};
 
@@ -67,7 +72,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Añadir una actividad al club con grupo nulo")
-    void testAnyadirActividadConGrupoNulo() {
+    void lanzaExcepcionCuandoSeAnyadeUnaActividadConGrupoNulo() {
         // Arrange
         Grupo g = null;
 
@@ -77,7 +82,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Añadir una actividad al club con formato de numero incorrecto")
-    void testAnyadirActividadConFormatoNumeroIncorrecto() {
+    void lanzaExcepcionCuandoSeAnyadeUnaActividadConFormatoDeNumeroIncorrecto() {
         // Arrange
         
         String[] datos = new String[]{"Actividad 1", "Entrenamiento", "10.3", "5.2", "10.0"};
@@ -91,7 +96,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Añadir un grupo ya presente a un club")
-    void testAnyadirGrupoYaPresente() throws ClubException {
+    void anyadirGrupoYaPresenteAUnClub() throws ClubException {
         // Arrange
         String[] datos = new String[]{"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String[] datos2 = new String[]{"Actividad 2", "Entrenamiento", "15", "10", "10.0"};
@@ -108,7 +113,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Las plazas libres de club sin actividades es 0")
-    void testPlazasLibresSinActividades() {
+    void plazasLibresDeUnClubSinActividadesEs0() {
         // Arrange
         String actividad = "Actividad 1";
         int ExpectedPlazasLibres = 0;
@@ -122,7 +127,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Las plazas libres de una actividad en un club")
-    void testPlazasLibresDeActividad() throws ClubException {
+    void plazasLibresDeUnaActividadDentroDeUnClub() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -138,7 +143,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Los ingresos obtenidos se calculan correctamente")
-    void testIngresos() throws ClubException {
+    void calculaIngresosCorrectamente() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         double ExpectedIngresos = 50.0;
@@ -153,7 +158,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Los ingresos obtenidos se calculan correctamente cuando hay mas de una actividad")
-    void testIngresosConMasDeUnaActividad() throws ClubException {
+    void calculaIngresosCorrectamenteConMasDeUnaActividad() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String[] datos2 = {"Actividad 2", "Entrenamiento", "15", "10", "10.0"};
@@ -170,7 +175,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en una actividad")
-    void testMatricular() throws ClubException {
+    void seMatriculaUnaPersonaAUnaActividadCorrectamente() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -188,7 +193,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en una actividad en la que no cabe")
-    void testMatricularSinPlazas() throws ClubException {
+    void lanzaExcepcionCuandoSeMatriculaUnaPersonaEnUnaActividadEnLaQueNoCabe() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -203,7 +208,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en la ultima plaza de una actividad")
-    void testMatricularUltimaPlaza() throws ClubException {
+    void seMatriculaCorrectamenteAUnaPersonaOcupandoLaUltimaPlaza() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -221,7 +226,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular un numero negativo de personas en una actividad")
-    void testMatricularNumeroNegativo() throws ClubException {
+    void lanzaExcepcionCuandoSeMatriculaUnNumeroNegativoDePersonasEnUnaActividad() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -236,7 +241,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en una actividad que no existe")
-    void testMatricularActividadInexistente() throws ClubException {
+    void lanzaExcepcionCuandoSeMatriculaUnaPersonaEnUnaActividadQueNoExiste() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Bailar";
@@ -251,7 +256,7 @@ class ClubDeportivoTest {
     
     @Test
     @DisplayName("Matricular personas en una actividad con grupo nulo")
-    void testMatricularActividadConGrupoNulo() {
+    void lanzaExcepcionCuandoSeMatriculaUnaPersonaEnUnaActividadConGrupoNulo() {
         // Arrange
         String actividad = "Bailar";
         int npersonas = 5;
@@ -262,7 +267,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en una actividad sin afectar a otra actividad")
-    void testMatricularSinAfectarOtraActividad() throws ClubException {
+    void seMatriculaCorrectamenteUnaPersonaAUnaActividadCuandoHayVariasActividadesDistintas() throws ClubException {
         // Arrange
         String[] datos1 = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String[] datos2 = {"Actividad 2", "Yoga", "15", "10", "10.0"};
@@ -282,7 +287,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas hasta llenar todas las plazas disponibles")
-    void testMatricularHastaLlenarPlazas() throws ClubException {
+    void seMatriculaCorrectamenteALasPersonasHastaLlenasTodasLasPlazasDisponibles() throws ClubException {
         // Arrange
         String[] datos = {"Actividad 1", "Entrenamiento", "10", "5", "10.0"};
         String actividad = "Entrenamiento";
@@ -300,7 +305,7 @@ class ClubDeportivoTest {
 
     @Test
     @DisplayName("Matricular personas en múltiples grupos de una actividad")
-    void testMatricularMultiplesGrupos() throws ClubException {
+    void distintasPersonasSeMatriculanEnMultiplesGruposDeUnaActividadCorrectamente() throws ClubException {
         // Arrange
         String[] datos1 = {"Actividad 1", "Entrenamiento", "5", "2", "10.0"};
         String[] datos2 = {"Actividad 2", "Entrenamiento", "5", "2", "10.0"};
