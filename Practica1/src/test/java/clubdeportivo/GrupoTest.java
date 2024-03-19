@@ -19,7 +19,7 @@ public class GrupoTest {
     
     @Test
     @DisplayName("Comprobar que el grupo se crea correctamente")
-    void testCrearGrupo() throws ClubException {
+    void creacionCorrecta() throws ClubException {
         // Arrange
         Grupo grupoPrueba = null;
         String codigo = "Grupo1";
@@ -38,7 +38,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con plazas negativas")
-    void testCrearGrupoConPlazasNegativas() {
+    void lanzaExcepcionCuandoCreaGrupoConPlazasNegativas() {
         // Arrange
         String codigo = "Grupo1";
         String actividad = "Deporte";
@@ -52,7 +52,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con matriculados negativos")
-    void testCrearGrupoConMatriculadosNegativos() {
+    void lanzaExcepcionCuandoCreaGrupoConMatriculadosNegativos() {
         // Arrange
         String codigo = "Grupo1";
         String actividad = "Deporte";
@@ -66,7 +66,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con tarifa negativa")
-    void testCrearGrupoConTarifaNegativa() {
+    void lanzaExcepcionCuandoCreaGrupoConTarifaNegativa() {
         // Arrange
         String codigo = "Grupo1";
         String actividad = "Deporte";
@@ -80,7 +80,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con matriculados mayores que plazas")
-    void testCrearGrupoConMatriculadosMayoresQuePlazas() {
+    void lanzaExcepcionCuandoCreaGrupoConMatriculadosMayoresQuePlazas() {
         // Arrange
         String codigo = "Grupo1";
         String actividad = "Deporte";
@@ -94,7 +94,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con código nulo")
-    void testCrearGrupoConCodigoNulo() {
+    void lanzaExcepcionCuandoCreaGrupoConCodigoNulo() {
         // Arrange
         String codigo = null;
         String actividad = "Deporte";
@@ -108,7 +108,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el constructor lanza excepción con actividad nula")
-    void testCrearGrupoConActividadNula() {
+    void lanzaExcepcionCuandoCreaGrupoConActividadNula() {
         // Arrange
         String codigo = "Grupo1";
         String actividad = null;
@@ -122,7 +122,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se actualizan las plazas correctamente")
-    void testActualizarPlazas() throws ClubException {
+    void actualizaPlazasCorrectamente() throws ClubException {
         // Arrange
         int nplazas = 20;
         String expectedToString = "(Grupo1 - Deporte - 25.0 euros - P:20 - M:5)";
@@ -135,8 +135,8 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Comprobar que el método actualizarPlazads lanza excepción con plazas negativas")
-    void testActualizarPlazasConPlazasNegativas() {
+    @DisplayName("Comprobar que el método actualizarPlazas lanza excepción con plazas negativas")
+    void lanzaExcepcionActualizandoConPlazasNegativas() {
         // Arrange
         int nplazas = -20;
 
@@ -146,7 +146,7 @@ public class GrupoTest {
     
     @Test
     @DisplayName("Comprobar que el método actualizarPlazas lanza excepción con plazas menores que matriculados")
-    void testActualizarPlazasConPlazasMenoresQueMatriculados() {
+    void lanzaExcepcionActualizandoPlazasConPlazasMenoresQueMatriculados() {
         // Arrange
         int nplazas = 4;
 
@@ -156,7 +156,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se matriculan correctamente")   
-    void testMatricular() throws ClubException {
+    void matricularCorrectamente() throws ClubException {
         // Arrange
         int n = 5;
         String expectedToString = "(Grupo1 - Deporte - 25.0 euros - P:10 - M:10)";
@@ -170,7 +170,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el método matricular lanza excepción con matriculados negativos")
-    void testMatricularConMatriculadosNegativos() {
+    void lanzaExcepcionMatriculandoConMatriculadosNegativos() {
         // Arrange
         int n = -5;
 
@@ -180,7 +180,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el método matricular lanza excepción con matriculados mayores que plazas")
-    void testMatricularConMatriculadosMayoresQuePlazas() {
+    void lanzaExcepcionMatriculandoConMatriculadosMayoresQuePlazas() {
         // Arrange
         int n = 20;
 
@@ -190,7 +190,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene el número de plazas libres correctamente")
-    void testPlazasLibres() {
+    void plazasLibresCorrectas() {
         // Arrange
         int expected = 5;
 
@@ -203,7 +203,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene el número de plazas libres correctamente con matriculados")
-    void testPlazasLibresConMatriculados() throws ClubException {
+    void plazasLibresCorrectasConMatriculados() throws ClubException {
         // Arrange
         grupo.matricular(5);
         int expected = 0;
@@ -217,7 +217,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene el código correctamente")
-    void testGetCodigo() {
+    void codigoCorrecto() {
         // Arrange
         String expected = "Grupo1";
 
@@ -230,7 +230,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene la actividad correctamente")
-    void testGetActividad() {
+    void actividadCorrecta() {
         // Arrange
         String expected = "Deporte";
 
@@ -243,7 +243,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtienen las plazas correctamente")
-    void testGetPlazas() {
+    void numeroDePlazasCorrectas() {
         // Arrange
         int expected = 10;
 
@@ -256,7 +256,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtienen los matriculados correctamente")
-    void testGetMatriculados() {
+    void numeroDeMatriculadosCorrecto() {
         // Arrange
         int expected = 5;
 
@@ -269,7 +269,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene la tarifa correctamente")
-    void testGetTarifa() {
+    void tarifaCorrecta() {
         // Arrange
         double expected = 25.0;
 
@@ -282,7 +282,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que se obtiene el toString correctamente")
-    void testToString() {
+    void toStringSeDevuelveConFormatoCorrecto() {
         // Arrange
         String expected = "(Grupo1 - Deporte - 25.0 euros - P:10 - M:5)";
         
@@ -295,7 +295,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente")
-    void testEquals() throws ClubException {
+    void equalsFuncionaCorrecto() throws ClubException {
         // Arrange
         Grupo grupo2 = new Grupo("Grupo1", "Deporte", 10, 5, 25.0);
         boolean expected = true;
@@ -309,7 +309,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente con distinto grupo")
-    void testEqualsConDistintoCodigo() throws ClubException {
+    void equalsDevuelveFalsoConDistintoGrupo() throws ClubException {
         // Arrange
         Grupo grupo2 = new Grupo("Grupo2", "Deporte", 10, 5, 25.0);
         boolean expected = false;
@@ -323,7 +323,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente con objeto distinto a Grupo")
-    void testEqualsConObjetoDistinto() {
+    void equalsFunDevuelveFalsoConObjetoDistinto() {
         // Arrange
         Object grupo2 = new Object();
         boolean expected = false;
@@ -337,7 +337,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente con null")
-    void testEqualsConNull() {
+    void equalsDevuelveFalsoConNull() {
         // Arrange
         Object grupo2 = null;
         boolean expected = false;
@@ -351,7 +351,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente con mismo código y distinta actividad")
-    void testEqualsConMismoCodigoYDistintaActividad() throws ClubException {
+    void equalsDevuelveFalsoConMismoCodigoYDistintaActividad() throws ClubException {
         // Arrange
         Grupo grupo2 = new Grupo("Grupo1", "OtraActividad", 10, 5, 25.0);
         boolean expected = false;
@@ -365,7 +365,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Comprobar que el equals funciona correctamente con distinto código y misma actividad")
-    void testEqualsConDistintoCodigoYMismaActividad() throws ClubException {
+    void equalsDevuelveFalsoConDistintoCodigoYMismaActividad() throws ClubException {
         // Arrange
         Grupo grupo2 = new Grupo("Grupo2", "Deporte", 10, 5, 25.0);
         boolean expected = false;
@@ -379,7 +379,7 @@ public class GrupoTest {
     
     @Test
     @DisplayName("Comprobar que el hashCode funciona correctamente")
-    void testHashCode() {
+    void hashCodeCorrecto() {
         // Arrange
         int expected = grupo.getCodigo().toUpperCase().hashCode() + grupo.getActividad().toUpperCase().hashCode();
 
