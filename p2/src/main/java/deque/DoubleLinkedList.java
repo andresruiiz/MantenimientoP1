@@ -1,4 +1,5 @@
-package org.mps.deque;
+package deque;
+
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
@@ -7,17 +8,22 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     private int size;
 
     public DoubleLinkedList() {
-        // TODO
+        first = null;
+        last = null;
+        size = 0;
     }
 
     @Override
     public void prepend(T value) {
         // TODO
+
     }
 
     @Override
     public void append(T value) {
         // TODO
+
+        
     }
 
     @Override
