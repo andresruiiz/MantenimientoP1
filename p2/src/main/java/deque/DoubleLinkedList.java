@@ -1,6 +1,5 @@
 package deque;
 
-
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     private LinkedNode<T> first;
@@ -15,42 +14,82 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void prepend(T value) {
-        // TODO
-
+        LinkedNode<T> newNode = new LinkedNode<>(value, null, null);
+        if (isEmpty()) {
+            first = newNode;
+            last = newNode;
+        } else {
+            newNode.setNext(first);
+            first.setPrevious(newNode);
+            first = newNode;
+        }
+        size++;
     }
 
     @Override
     public void append(T value) {
-        // TODO
-
-        
+        LinkedNode<T> newNode = new LinkedNode<>(value, null, null);
+        if (isEmpty()) {
+            first = newNode;
+            last = newNode;
+        } else {
+            newNode.setPrevious(last);
+            last.setNext(newNode);
+            last = newNode;
+        }
+        size++;
     }
 
     @Override
     public void deleteFirst() {
-        // TODO
+        if (!isEmpty()) {
+            if (size == 1) {
+                first = null;
+                last = null;
+            } else {
+                first = first.getNext();
+                first.setPrevious(null);
+            }
+            size--;
+        }
     }
 
     @Override
     public void deleteLast() {
-        // TODO
+        if (!isEmpty()) {
+            if (size == 1) {
+                first = null;
+                last = null;
+            } else {
+                last = last.getPrevious();
+                last.setNext(null);
+            }
+            size--;
+        }
     }
 
     @Override
     public T first() {
-        // TODO
+        if (!isEmpty()) {
+            return first.getItem();
+        }
         return null;
     }
 
     @Override
     public T last() {
-        // TODO
+        if (!isEmpty()) {
+            return last.getItem();
+        }
         return null;
     }
 
     @Override
     public int size() {
-        // TODO
-        return 0;
+        return size;
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
     }
 }
