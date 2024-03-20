@@ -23,6 +23,21 @@ public class DoubleLinkedListTest {
             assertEquals(10, list.last());
             assertEquals(3, list.size());
         }
+
+        @Test
+        @DisplayName("Test prepend method with empty list")
+        void testPrependWithEmptyList() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+
+            // Act
+            list.prepend(10);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(10, list.last());
+            assertEquals(1, list.size());
+        }
     }
 
     @Nested
