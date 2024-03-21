@@ -201,4 +201,168 @@ public class DoubleLinkedListTest {
             assertEquals(3, result);
         }
     }
+
+    @Nested
+    @DisplayName("Tests for get method")
+    class WhenGetMethodCalled{
+
+        @Test
+        @DisplayName("When get method is called with index out of range, then exception is thrown")
+        void whenGetCalledWithIndexOutOfRange_thenExceptionThrown() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act and Assert
+            assertThrows(IndexOutOfBoundsException.class, () -> list.get(3));
+        }
+
+        @Test
+        @DisplayName("When get method is called with valid index, then it returns the correct element")
+        void whenGetCalledWithValidIndex_thenReturnsCorrectElement() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            int result = list.get(1);
+
+            // Assert
+            assertEquals(20, result);
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for Contains method")
+    class whenContainsMethodCalled{
+
+        @Test
+        @DisplayName("When contains method is called with an element that is in the list, then it returns true")
+        void whenContainsCalledWithElementInList_thenReturnsTrue() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            boolean result = list.contains(20);
+
+            // Assert
+            assertTrue(result);
+        }
+
+        @Test
+        @DisplayName("When contains method is called with an element that is not in the list, then it returns false")
+        void whenContainsCalledWithElementNotInList_thenReturnsFalse() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            boolean result = list.contains(40);
+
+            // Assert
+            assertFalse(result);
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for remove method")
+    class WhenRemoveMethodCalled{
+        @Test
+        @DisplayName("When remove method is called with an element that is in the list, then it removes the element")
+        void whenRemoveCalledWithElementInList_thenElementRemoved() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            list.remove(20);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(30, list.last());
+            assertEquals(2, list.size());
+        }
+
+        @Test
+        @DisplayName("When remove method is called with an element that is not in the list, then the list remains the same")
+        void whenRemoveCalledWithElementNotInList_thenListRemainsSame() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            list.remove(40);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(30, list.last());
+            assertEquals(3, list.size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for sort method")
+    class WhenSortMethodCalled{
+        @Test
+        @DisplayName("When sort method is called with an empty list, then the list remains the same")
+        void whenSortCalledWithEmptyList_thenListRemainsSame() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+
+            // Act
+            list.sort(Integer::compareTo);
+
+            // Assert
+            assertEquals(0, list.size());
+        }
+
+        @Test
+        @DisplayName("When sort method is called with a list that is already sorted, then the list remains the same")
+        void whenSortCalledWithSortedList_thenListRemainsSame() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            list.sort(Integer::compareTo);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(30, list.last());
+            assertEquals(3, list.size());
+        }
+
+        @Test
+        @DisplayName("When sort method is called with a list that is not sorted, then the list is sorted")
+        void whenSortCalledWithUnsortedList_thenListSorted() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(30);
+            list.append(10);
+            list.append(20);
+
+            // Act
+            list.sort(Integer::compareTo);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(30, list.last());
+            assertEquals(3, list.size());
+        }
+    }
 }
