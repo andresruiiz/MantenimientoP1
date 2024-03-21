@@ -88,16 +88,13 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("When deleteFirst method is called with empty list, then no change occurs")
-        void whenDeleteFirstCalledWithEmptyList_thenNoChangeOccurs() {
+        @DisplayName("When deleteFirst method is called with empty list, then exception is thrown")
+        void whenDeleteFirstCalledWithEmptyList_thenExceptionThrown() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
-            // Act
-            list.deleteFirst();
-
-            // Assert
-            assertEquals(0, list.size());
+            // Act and Assert
+            assertThrows(DoubleLinkedQueueException.class, list::deleteFirst);
         }
 
         @Test
@@ -137,16 +134,13 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("When deleteLast method is called with empty list, then no change occurs")
-        void whenDeleteLastCalledWithEmptyList_thenNoChangeOccurs() {
+        @DisplayName("When deleteLast method is called with empty list, then exception is thrown")
+        void whenDeleteLastCalledWithEmptyList_thenExceptionThrown() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
-            // Act
-            list.deleteLast();
-
-            // Assert
-            assertEquals(0, list.size());
+            // Act and Assert
+            assertThrows(DoubleLinkedQueueException.class, list::deleteLast);
         }
 
         @Test
@@ -168,29 +162,23 @@ public class DoubleLinkedListTest {
     @DisplayName("Tests for first and last methods")
     class WhenFirstAndLastMethodsCalled {
         @Test
-        @DisplayName("When first method is called with empty list, then it returns null")
-        void whenFirstCalledWithEmptyList_thenReturnsNull() {
+        @DisplayName("When first method is called with empty list, then exception is thrown")
+        void whenFirstCalledWithEmptyList_thenExceptionThrown() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
-            // Act
-            Integer result = list.first();
-
-            // Assert
-            assertNull(result);
+            // Act and Assert
+            assertThrows(DoubleLinkedQueueException.class, list::first);
         }
 
         @Test
-        @DisplayName("When last method is called with empty list, then it returns null")
-        void whenLastCalledWithEmptyList_thenReturnsNull() {
+        @DisplayName("When last method is called with empty list, then exception is thrown")
+        void whenLastCalledWithEmptyList_thenExceptionThrown() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
-            // Act
-            Integer result = list.last();
-
-            // Assert
-            assertNull(result);
+            // Act and Assert
+            assertThrows(DoubleLinkedQueueException.class, list::last);
         }
     }
 
