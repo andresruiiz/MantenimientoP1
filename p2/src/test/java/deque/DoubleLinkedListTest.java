@@ -234,6 +234,19 @@ public class DoubleLinkedListTest {
             // Assert
             assertEquals(20, result);
         }
+
+        @Test
+        @DisplayName("When get method is called with negative index, then exception is thrown")
+        void whenGetCalledWithNegativeIndex_thenExceptionThrown() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act and Assert
+            assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1));
+        }
     }
 
     @Nested
@@ -310,6 +323,42 @@ public class DoubleLinkedListTest {
             assertEquals(10, list.first());
             assertEquals(30, list.last());
             assertEquals(3, list.size());
+        }
+
+        @Test
+        @DisplayName("When remove method is called with an element that is the first element, then it removes the element")
+        void whenRemoveCalledWithFirstElement_thenElementRemoved() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            list.remove(10);
+
+            // Assert
+            assertEquals(20, list.first());
+            assertEquals(30, list.last());
+            assertEquals(2, list.size());
+        }
+
+        @Test
+        @DisplayName("When remove method is called with an element that is the last element, then it removes the element")
+        void whenRemoveCalledWithLastElement_thenElementRemoved() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            list.remove(30);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(20, list.last());
+            assertEquals(2, list.size());
         }
     }
 
