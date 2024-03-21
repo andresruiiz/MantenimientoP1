@@ -9,8 +9,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for getItem method")
     class GetItemTests {
         @Test
-        @DisplayName("Test getItem method")
-        void testGetItem() {
+        @DisplayName("When getting item, then return item")
+        void whenGettingItem_thenReturnItem() {
             // Arrange
             LinkedNode<Integer> node = new LinkedNode<>(10, null, null);
 
@@ -26,8 +26,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for setItem method")
     class SetItemTests {
         @Test
-        @DisplayName("Test setItem method")
-        void testSetItem() {
+        @DisplayName("When setting item, then item is set")
+        void whenSettingItem_thenItemIsSet() {
             // Arrange
             LinkedNode<Integer> node = new LinkedNode<>(10, null, null);
 
@@ -43,8 +43,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for getPrevious method")
     class GetPreviousTests {
         @Test
-        @DisplayName("Test getPrevious method")
-        void testGetPrevious() {
+        @DisplayName("When getting previous node, then return previous node")
+        void whenGettingPrevious_thenReturnPreviousNode() {
             // Arrange
             LinkedNode<Integer> previousNode = new LinkedNode<>(10, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(20, previousNode, null);
@@ -61,8 +61,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for setPrevious method")
     class SetPreviousTests {
         @Test
-        @DisplayName("Test setPrevious method")
-        void testSetPrevious() {
+        @DisplayName("When setting previous node, then previous node is set")
+        void whenSettingPrevious_thenPreviousNodeIsSet() {
             // Arrange
             LinkedNode<Integer> previousNode = new LinkedNode<>(10, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(20, null, null);
@@ -79,8 +79,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for getNext method")
     class GetNextTests {
         @Test
-        @DisplayName("Test getNext method")
-        void testGetNext() {
+        @DisplayName("When getting next node, then return next node")
+        void whenGettingNext_thenReturnNextNode() {
             // Arrange
             LinkedNode<Integer> nextNode = new LinkedNode<>(20, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(10, null, nextNode);
@@ -97,8 +97,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for setNext method")
     class SetNextTests {
         @Test
-        @DisplayName("Test setNext method")
-        void testSetNext() {
+        @DisplayName("When setting next node, then next node is set")
+        void whenSettingNext_thenNextNodeIsSet() {
             // Arrange
             LinkedNode<Integer> nextNode = new LinkedNode<>(20, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(10, null, null);
@@ -115,8 +115,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for isFirstNode method")
     class IsFirstNodeTests {
         @Test
-        @DisplayName("Test isFirstNode method")
-        void testIsFirstNode() {
+        @DisplayName("When checking if first node, then return true")
+        void whenCheckingIfFirstNode_thenReturnTrue() {
             // Arrange
             LinkedNode<Integer> node = new LinkedNode<>(10, null, null);
 
@@ -132,8 +132,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for isLastNode method")
     class IsLastNodeTests {
         @Test
-        @DisplayName("Test isLastNode method")
-        void testIsLastNode() {
+        @DisplayName("When checking if last node, then return true")
+        void whenCheckingIfLastNode_thenReturnTrue() {
             // Arrange
             LinkedNode<Integer> node = new LinkedNode<>(10, null, null);
 
@@ -149,8 +149,8 @@ public class LinkedNodeTest {
     @DisplayName("Tests for isNotATerminalNode method")
     class IsNotATerminalNodeTests {
         @Test
-        @DisplayName("Test isNotATerminalNode method")
-        void testIsNotATerminalNode() {
+        @DisplayName("When checking if not a terminal node, then return true")
+        void whenCheckingIfNotTerminalNode_thenReturnTrue() {
             // Arrange
             LinkedNode<Integer> previousNode = new LinkedNode<>(10, null, null);
             LinkedNode<Integer> nextNode = new LinkedNode<>(20, null, null);
@@ -164,8 +164,8 @@ public class LinkedNodeTest {
         }
         
         @Test
-        @DisplayName("Test isNotATerminalNode method with first node")
-        void testIsNotATerminalNodeFirstNode() {
+        @DisplayName("When checking if not a terminal node with first node, then return false")
+        void whenCheckingIfNotTerminalNodeWithFirstNode_thenReturnFalse() {
             // Arrange
             LinkedNode<Integer> nextNode = new LinkedNode<>(20, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(15, null, nextNode);
@@ -178,8 +178,8 @@ public class LinkedNodeTest {
         }
         
         @Test
-        @DisplayName("Test isNotATerminalNode method with last node")
-        void testIsNotATerminalNodeLastNode() {
+        @DisplayName("When checking if not a terminal node with last node, then return false")
+        void whenCheckingIfNotTerminalNodeWithLastNode_thenReturnFalse() {
             // Arrange
             LinkedNode<Integer> previousNode = new LinkedNode<>(10, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(15, previousNode, null);
@@ -192,8 +192,8 @@ public class LinkedNodeTest {
         }
         
         @Test
-        @DisplayName("Test isNotATerminalNode method with only node")
-        void testIsNotATerminalNodeOnlyNode() {
+        @DisplayName("When checking if not a terminal node with only node, then return false")
+        void whenCheckingIfNotTerminalNodeWithOnlyNode_thenReturnFalse() {
             // Arrange
             LinkedNode<Integer> node = new LinkedNode<>(15, null, null);
 
