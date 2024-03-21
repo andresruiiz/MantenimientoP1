@@ -1,3 +1,8 @@
+/*
+ * @author 1: Nicoló Melley
+ * @author 2: Andrés Ruiz Sánchez
+ */
+
 package deque;
 
 import java.util.Comparator;
