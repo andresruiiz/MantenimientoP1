@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoubleLinkedListTest {
     @Nested
     @DisplayName("Tests for prepend method")
-    class PrependTests {
+    class WhenPrependMethodCalled {
         @Test
-        @DisplayName("Test prepend method")
-        void testPrepend() {
+        @DisplayName("When prepend method is called, then elements are added to the beginning of the list")
+        void whenPrependCalled_thenElementsAddedToBeginning() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -25,8 +25,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test prepend method with empty list")
-        void testPrependWithEmptyList() {
+        @DisplayName("When prepend method is called with empty list, then element is added as the only element")
+        void whenPrependCalledWithEmptyList_thenElementAddedAsOnlyElement() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -42,10 +42,10 @@ public class DoubleLinkedListTest {
 
     @Nested
     @DisplayName("Tests for append method")
-    class AppendTests {
+    class WhenAppendMethodCalled {
         @Test
-        @DisplayName("Test append method")
-        void testAppend() {
+        @DisplayName("When append method is called, then elements are added to the end of the list")
+        void whenAppendCalled_thenElementsAddedToEnd() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -63,10 +63,10 @@ public class DoubleLinkedListTest {
 
     @Nested
     @DisplayName("Tests for deleteFirst method")
-    class DeleteFirstTests {
+    class WhenDeleteFirstMethodCalled {
         @Test
-        @DisplayName("Test deleteFirst method")
-        void testDeleteFirst() {
+        @DisplayName("When deleteFirst method is called, then the first element is removed")
+        void whenDeleteFirstCalled_thenFirstElementRemoved() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
             list.append(10);
@@ -83,8 +83,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test deleteFirst method with empty list")
-        void testDeleteFirstWithEmptyList() {
+        @DisplayName("When deleteFirst method is called with empty list, then no change occurs")
+        void whenDeleteFirstCalledWithEmptyList_thenNoChangeOccurs() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -96,8 +96,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test deleteFirst method with one element")
-        void testDeleteFirstWithOneElement() {
+        @DisplayName("When deleteFirst method is called with one element, then the list becomes empty")
+        void whenDeleteFirstCalledWithOneElement_thenListBecomesEmpty() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
             list.append(10);
@@ -112,10 +112,10 @@ public class DoubleLinkedListTest {
 
     @Nested
     @DisplayName("Tests for deleteLast method")
-    class DeleteLastTests {
+    class WhenDeleteLastMethodCalled {
         @Test
-        @DisplayName("Test deleteLast method")
-        void testDeleteLast() {
+        @DisplayName("When deleteLast method is called, then the last element is removed")
+        void whenDeleteLastCalled_thenLastElementRemoved() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
             list.append(10);
@@ -132,8 +132,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test deleteLast method with empty list")
-        void testDeleteLastWithEmptyList() {
+        @DisplayName("When deleteLast method is called with empty list, then no change occurs")
+        void whenDeleteLastCalledWithEmptyList_thenNoChangeOccurs() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -145,8 +145,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test deleteLast method with one element")
-        void testDeleteLastWithOneElement() {
+        @DisplayName("When deleteLast method is called with one element, then the list becomes empty")
+        void whenDeleteLastCalledWithOneElement_thenListBecomesEmpty() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
             list.append(10);
@@ -161,10 +161,10 @@ public class DoubleLinkedListTest {
 
     @Nested
     @DisplayName("Tests for first and last methods")
-    class FirstAndLastTests {
+    class WhenFirstAndLastMethodsCalled {
         @Test
-        @DisplayName("Test first method with empty list")
-        void testFirstWithEmptyList() {
+        @DisplayName("When first method is called with empty list, then it returns null")
+        void whenFirstCalledWithEmptyList_thenReturnsNull() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -176,8 +176,8 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("Test last method with empty list")
-        void testLastWithEmptyList() {
+        @DisplayName("When last method is called with empty list, then it returns null")
+        void whenLastCalledWithEmptyList_thenReturnsNull() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
 
@@ -191,10 +191,10 @@ public class DoubleLinkedListTest {
 
     @Nested
     @DisplayName("Tests for size method")
-    class SizeTests {
+    class WhenSizeMethodCalled {
         @Test
-        @DisplayName("Test size method")
-        void testSize() {
+        @DisplayName("When size method is called, then it returns the correct size of the list")
+        void whenSizeMethodCalled_thenReturnsCorrectSize() {
             // Arrange
             DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
             list.append(10);
