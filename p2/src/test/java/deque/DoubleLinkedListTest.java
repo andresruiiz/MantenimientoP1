@@ -247,6 +247,22 @@ public class DoubleLinkedListTest {
             // Act and Assert
             assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1));
         }
+
+        @Test
+        @DisplayName("When get method is called with index 0, then it returns the first element")
+        void whenGetCalledWithIndexZero_thenReturnsFirstElement() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(30);
+
+            // Act
+            int result = list.get(0);
+
+            // Assert
+            assertEquals(10, result);
+        }
     }
 
     @Nested
@@ -283,6 +299,20 @@ public class DoubleLinkedListTest {
 
             // Assert
             assertFalse(result);
+        }
+
+        @Test
+        @DisplayName("When contains method is called with null and the list contains null, then it returns true")
+        void whenContainsCalledWithNullAndListContainsNull_thenReturnsTrue() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(null);
+
+            // Act
+            boolean result = list.contains(null);
+
+            // Assert
+            assertTrue(result);
         }
     }
 
@@ -360,6 +390,24 @@ public class DoubleLinkedListTest {
             assertEquals(20, list.last());
             assertEquals(2, list.size());
         }
+
+        @Test
+        @DisplayName("When remove method is called with an element that appears multiple times, then only the first occurrence is removed")
+        void whenRemoveCalledWithElementAppearingMultipleTimes_thenOnlyFirstOccurrenceRemoved() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(10);
+            list.append(20);
+            list.append(10);
+
+            // Act
+            list.remove(10);
+
+            // Assert
+            assertEquals(20, list.first());
+            assertEquals(10, list.last());
+            assertEquals(2, list.size());
+        }
     }
 
     @Nested
@@ -404,6 +452,24 @@ public class DoubleLinkedListTest {
             list.append(30);
             list.append(10);
             list.append(20);
+
+            // Act
+            list.sort(Integer::compareTo);
+
+            // Assert
+            assertEquals(10, list.first());
+            assertEquals(30, list.last());
+            assertEquals(3, list.size());
+        }
+
+        @Test
+        @DisplayName("When sort method is called with a list that is sorted in descending order, then the list is sorted in ascending order")
+        void whenSortCalledWithDescendingOrderList_thenListSortedInAscendingOrder() {
+            // Arrange
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(30);
+            list.append(20);
+            list.append(10);
 
             // Act
             list.sort(Integer::compareTo);
