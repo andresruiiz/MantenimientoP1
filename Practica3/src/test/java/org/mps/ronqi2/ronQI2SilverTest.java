@@ -59,6 +59,29 @@ public class ronQI2SilverTest {
      * Centrate en probar si todo va bien, o si no, y si se llama a los métodos que deben ser llamados.
      */
     
+    @DisplayName("Cuando se reconecta un dispositivo desconectado, se conectan ambos sensores")
+    @Test
+    public void testReconectar() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.reconectar();
+
+        // STEP 4: asserting
+        assertTrue(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+    }
+
     /*
      * El método evaluarApneaSuenyo, evalua las últimas 5 lecturas realizadas con obtenerNuevaLectura(), 
      * y si ambos sensores superan o son iguales a sus umbrales, que son thresholdP = 20.0f y thresholdS = 30.0f;, 
