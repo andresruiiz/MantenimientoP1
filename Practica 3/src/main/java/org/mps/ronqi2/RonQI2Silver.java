@@ -52,8 +52,9 @@ public class RonQI2Silver extends RonQI2{
                 .mapToDouble(d -> d)
                 .average()
                 .orElse(0.0);
-        
-        if (avgP>=thresholdP && avgS > thresholdS){
+        //Error: debería ser avgP > thresholdP && avgS > thresholdS, no >= ya que se pide que sea mayor
+        //if (avgP>=thresholdP && avgS > thresholdS){
+          if(avgP > thresholdP && avgS > thresholdS)
             // Error: debería ser resultado = true
             // resultado = false;
             resultado = true;
