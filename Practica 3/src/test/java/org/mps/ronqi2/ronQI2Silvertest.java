@@ -6,9 +6,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.mps.dispositivo.DispositivoSilver;
-import org.mps.ronqi2.RonQI2Silver;
 
 public class ronQI2Silvertest {
 
@@ -25,6 +26,7 @@ public class ronQI2Silvertest {
      * se llama una sola vez al configurar de cada sensor.
      */
 
+    @DisplayName("Cuando se inicializa de forma correcta, se llama una sola vez al configurar de cada sensor")
     @Test
     public void testInicializar() {
         // STEP 1: create mock object
