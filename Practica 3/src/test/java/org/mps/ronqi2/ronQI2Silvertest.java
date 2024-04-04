@@ -1,5 +1,14 @@
 package org.mps.ronqi2;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+import org.mps.dispositivo.DispositivoSilver;
+import org.mps.ronqi2.RonQI2Silver;
 
 public class ronQI2Silvertest {
 
@@ -15,6 +24,32 @@ public class ronQI2Silvertest {
      * Un inicializar debe configurar ambos sensores, comprueba que cuando se inicializa de forma correcta (el conectar es true), 
      * se llama una sola vez al configurar de cada sensor.
      */
+
+    @Test
+    public void testInicializar() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.inicializar();
+
+        // STEP 4: asserting
+        assertTrue(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).configurarSensorPresion();
+        verify(mockedDispositivo, times(1)).configurarSensorSonido();
+    }
 
     /*
      * Un reconectar, comprueba si el dispositivo desconectado, en ese caso, conecta ambos y devuelve true si ambos han sido conectados. 
