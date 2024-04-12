@@ -82,7 +82,7 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
 
-    @DisplayName("Cuando se inicializa de forma incorrecta y no se conecta el Sensor, entonces result es False")
+    @DisplayName("Cuando se inicializa de forma incorrecta y no se conecta el Sensor de presión, entonces result es False")
     @Test
     public void testInicializar3() {
         // STEP 1: create mock object
@@ -104,6 +104,87 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(0)).conectarSensorSonido();
         verify(mockedDispositivo, times(0)).configurarSensorPresion();
         verify(mockedDispositivo, times(0)).configurarSensorSonido();
+    }
+
+    @DisplayName("Cuando se inicializa de forma correcta y se conectan ambos sensores, entonces result es True")
+    @Test
+    public void testInicializar4() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.inicializar();
+
+        // STEP 4: asserting
+        assertTrue(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).configurarSensorPresion();
+        verify(mockedDispositivo, times(1)).configurarSensorSonido();
+    }
+
+    @DisplayName("Cuando se inicializa de forma correcta y no se configura el Sensor de sonido, entonces result es False")
+    @Test
+    public void testInicializar5() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorSonido()).thenReturn(false);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.inicializar();
+
+        // STEP 4: asserting
+        assertFalse(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).configurarSensorPresion();
+        verify(mockedDispositivo, times(1)).configurarSensorSonido();
+    }
+
+    @DisplayName("Cuando se inicializa de forma correcta y no se configura el Sensor de presión, entonces result es False")
+    @Test
+    public void testInicializar6() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+        when(mockedDispositivo.configurarSensorPresion()).thenReturn(false);
+        when(mockedDispositivo.configurarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.inicializar();
+
+        // STEP 4: asserting
+        assertFalse(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).configurarSensorPresion();
+        verify(mockedDispositivo, times(1)).configurarSensorSonido();
     }
 
     /*
