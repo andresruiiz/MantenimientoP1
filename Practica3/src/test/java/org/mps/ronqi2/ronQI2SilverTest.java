@@ -88,6 +88,30 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
 
+    @DisplayName("Cuando se reconecta un dispositivo desconectado, se conectan ambos sensores")
+    @Test
+    public void testReconectar2() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(false);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.reconectar();
+
+        // STEP 4: asserting
+        assertFalse(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(0)).conectarSensorSonido();
+    }
+
+
     /*
      * El método evaluarApneaSuenyo, evalua las últimas 5 lecturas realizadas con obtenerNuevaLectura(), 
      * y si ambos sensores superan o son iguales a sus umbrales, que son thresholdP = 20.0f y thresholdS = 30.0f;, 
@@ -148,9 +172,47 @@ public class ronQI2SilverTest {
         assertTrue(result);
     }
 
-    
+    @DisplayName("Si se realizan 10 lecturas con valores por debajo de los umbrales, no se considera que hay una apnea en proceso")
+    @Test
+    public void testEvaluarApneaSuenyo3() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
-    
-    
-    
+        // STEP 2: stubbing
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(10.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(20.0f);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        for (int i = 0; i < 10; i++) {
+            ronQi2Silver.obtenerNuevaLectura();
+        }
+        boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertFalse(result);
+    }
+
+    @DisplayName("Si se realizan 10 lecturas con valores por encima de los umbrales, se considera que hay una apnea en proceso")
+    @Test
+    public void testEvaluarApneaSuenyo4() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(30.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(40.0f);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        for (int i = 0; i < 10; i++) {
+            ronQi2Silver.obtenerNuevaLectura();
+        }
+        boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertTrue(result);
+    }
 }
