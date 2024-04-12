@@ -5,6 +5,7 @@
 
 package org.mps.ronqi2;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -120,7 +121,7 @@ public class ronQI2SilverTest {
         boolean result = ronQi2Silver.evaluarApneaSuenyo();
 
         // STEP 4: asserting
-        assertTrue(!result);
+        assertFalse(result);
     }
 
     @DisplayName("Si se realizan 5 lecturas con valores por encima de los umbrales, se considera que hay una apnea en proceso")
@@ -130,8 +131,8 @@ public class ronQI2SilverTest {
         DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
         // STEP 2: stubbing
-        when(mockedDispositivo.leerSensorPresion()).thenReturn(20.0f);
-        when(mockedDispositivo.leerSensorSonido()).thenReturn(30.0f);
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(30.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(40.0f);
 
         // STEP 3: using the mocked object
         RonQI2Silver ronQi2Silver = new RonQI2Silver();
