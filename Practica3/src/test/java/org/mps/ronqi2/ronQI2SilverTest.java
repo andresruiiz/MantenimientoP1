@@ -1,3 +1,8 @@
+/*
+ * @author 1: Nicoló Melley
+ * @author 2: Andrés Ruiz Sánchez
+ */
+
 package org.mps.ronqi2;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
