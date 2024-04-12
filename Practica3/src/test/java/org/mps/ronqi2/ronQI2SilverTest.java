@@ -93,6 +93,34 @@ public class ronQI2SilverTest {
      * se considera que hay una apnea en proceso. Si hay menos de 5 lecturas también debería realizar la media.
      * /
      
+    /*
+        * Realiza un test para comprobar que si se realizan 5 lecturas con valores por debajo de los umbrales,
+        * no se considera que hay una apnea en proceso.
+        */
+    @DisplayName("Si se realizan 5 lecturas con valores por debajo de los umbrales, no se considera que hay una apnea en proceso")
+    @Test
+    public void testEvaluarApneaSuenyo() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(10.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(20.0f);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        ronQi2Silver.obtenerNuevaLectura();
+        ronQi2Silver.obtenerNuevaLectura();
+        ronQi2Silver.obtenerNuevaLectura();
+        ronQi2Silver.obtenerNuevaLectura();
+        ronQi2Silver.obtenerNuevaLectura();
+        boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertTrue(!result);
+    }
+
      /* Realiza un primer test para ver que funciona bien independientemente del número de lecturas.
      * Usa el ParameterizedTest para realizar un número de lecturas previas a calcular si hay apnea o no (por ejemplo 4, 5 y 10 lecturas).
      * https://junit.org/junit5/docs/current/user-guide/index.html#writing-tests-parameterized-tests
