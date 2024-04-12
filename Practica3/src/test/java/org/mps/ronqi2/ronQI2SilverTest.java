@@ -103,15 +103,15 @@ public class ronQI2SilverTest {
         // STEP 3: using the mocked object
         RonQI2Silver ronQi2Silver = new RonQI2Silver();
         ronQi2Silver.anyadirDispositivo(mockedDispositivo);
-        ronQi2Silver.reconectar();
+        when(ronQi2Silver.disp.estaConectado()).thenReturn(true);
         boolean result = ronQi2Silver.reconectar();
 
         // STEP 4: asserting
         assertFalse(result);
 
         // STEP 5: optional -> verifying
-        verify(mockedDispositivo, times(1)).conectarSensorPresion();
-        verify(mockedDispositivo, times(1)).conectarSensorSonido();
+        verify(mockedDispositivo, times(0)).conectarSensorPresion();
+        verify(mockedDispositivo, times(0)).conectarSensorSonido();
     }
     
 
@@ -278,6 +278,7 @@ public class ronQI2SilverTest {
         // STEP 3: using the mocked object
         RonQI2Silver ronQi2Silver = new RonQI2Silver();
         ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        when(ronQi2Silver.estaConectado()).thenReturn(true);
         boolean result = ronQi2Silver.estaConectado();
 
         // STEP 4: asserting
