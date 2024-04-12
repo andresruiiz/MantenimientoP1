@@ -59,6 +59,30 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).configurarSensorSonido();
     }
 
+    @DisplayName("Cuando se inicializa de forma incorrecta y no se conecta el Sensor, entonces result es False")
+    @Test
+    public void testInicializar2() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(false);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.inicializar();
+
+        // STEP 4: asserting
+        assertFalse(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(0)).conectarSensorSonido();
+        verify(mockedDispositivo, times(0)).configurarSensorPresion();
+        verify(mockedDispositivo, times(0)).configurarSensorSonido();
+    }
+
 
 
     /*
