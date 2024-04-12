@@ -59,6 +59,8 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).configurarSensorSonido();
     }
 
+
+
     /*
      * Un reconectar, comprueba si el dispositivo desconectado, en ese caso, conecta ambos y devuelve true si ambos han sido conectados. 
      * Genera las pruebas que estimes oportunas para comprobar su correcto funcionamiento. 
@@ -88,19 +90,20 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
 
-    @DisplayName("Cuando se reconecta un dispositivo desconectado, se conectan ambos sensores")
+    @DisplayName("Cuando se reconecta un dispositivo conectado, no se conectan los sensores")
     @Test
     public void testReconectar2() {
         // STEP 1: create mock object
         DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
         // STEP 2: stubbing
-        when(mockedDispositivo.conectarSensorPresion()).thenReturn(false);
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
         when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
 
         // STEP 3: using the mocked object
         RonQI2Silver ronQi2Silver = new RonQI2Silver();
         ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        ronQi2Silver.reconectar();
         boolean result = ronQi2Silver.reconectar();
 
         // STEP 4: asserting
@@ -108,8 +111,10 @@ public class ronQI2SilverTest {
 
         // STEP 5: optional -> verifying
         verify(mockedDispositivo, times(1)).conectarSensorPresion();
-        verify(mockedDispositivo, times(0)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
+    
+
 
 
     /*
@@ -211,6 +216,69 @@ public class ronQI2SilverTest {
             ronQi2Silver.obtenerNuevaLectura();
         }
         boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertTrue(result);
+    }
+
+    @DisplayName("Si se realizan 4 lecturas con valores de Presion por encima del umbral y de Sonido por debajo, no se considera que hay una apnea en proceso")
+    @Test
+    public void testEvaluarApneaSuenyo5() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(30.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(20.0f);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        for (int i = 0; i < 4; i++) {
+            ronQi2Silver.obtenerNuevaLectura();
+        }
+        boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertFalse(result);
+    }
+
+    @DisplayName("Si se realizan 4 lecturas con valores de Presion por debajo del umbral y de Sonido por encima, no se considera que hay una apnea en proceso")
+    @Test
+    public void testEvaluarApneaSuenyo6() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.leerSensorPresion()).thenReturn(10.0f);
+        when(mockedDispositivo.leerSensorSonido()).thenReturn(40.0f);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        for (int i = 0; i < 4; i++) {
+            ronQi2Silver.obtenerNuevaLectura();
+        }
+        boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+        // STEP 4: asserting
+        assertFalse(result);
+    }
+
+    @DisplayName("Revisa si un dispositivo está conectado correctamente")
+    @Test
+    public void testDispositivoConectado() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.estaConectado();
 
         // STEP 4: asserting
         assertTrue(result);
