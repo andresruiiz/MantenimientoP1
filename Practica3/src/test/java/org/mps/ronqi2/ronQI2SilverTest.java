@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mps.dispositivo.DispositivoSilver;
+import org.junit.jupiter.api.Nested;
 
 public class ronQI2SilverTest {
 
@@ -33,7 +34,11 @@ public class ronQI2SilverTest {
      * se llama una sola vez al configurar de cada sensor.
      */
 
-    @DisplayName("Cuando se inicializa de forma correcta, se llama una sola vez al configurar de cada sensor")
+    @Nested
+    @DisplayName("Tests para el método inicializar")
+    class TestInicializar{
+
+        @DisplayName("Cuando se inicializa de forma correcta, se llama una sola vez al configurar de cada sensor")
     @Test
     public void testInicializar() {
         // STEP 1: create mock object
@@ -188,13 +193,21 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).configurarSensorSonido();
     }
 
+    }
+
+    
+
     /*
      * Un reconectar, comprueba si el dispositivo desconectado, en ese caso, conecta ambos y devuelve true si ambos han sido conectados. 
      * Genera las pruebas que estimes oportunas para comprobar su correcto funcionamiento. 
      * Centrate en probar si todo va bien, o si no, y si se llama a los métodos que deben ser llamados.
      */
     
-    @DisplayName("Cuando se reconecta un dispositivo desconectado, se conectan ambos sensores")
+    @Nested
+    @DisplayName("Tests para el método reconectar")
+    class TestReconectar{
+
+        @DisplayName("Cuando se reconecta un dispositivo desconectado, se conectan ambos sensores")
     @Test
     public void testReconectar() {
         // STEP 1: create mock object
@@ -264,6 +277,10 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
 
+    }
+
+    
+
 
 
     /*
@@ -277,10 +294,14 @@ public class ronQI2SilverTest {
      * https://junit.org/junit5/docs/current/user-guide/index.html#writing-tests-parameterized-tests
      */
 
-     @DisplayName("Evaluar apnea con diferentes números de lecturas previas")
+    @Nested
+    @DisplayName("Tests para el método evaluarApneaSuenyo")
+    class testEvaluarApneaSuenyo{
+
+    @DisplayName("Evaluar apnea con diferentes números de lecturas previas")
      @ParameterizedTest
      @ValueSource(ints = {4, 5, 10})
-     public void testEvaluarApneaSuenyo(int numLecturas) {
+     public void testEvaluarApneaSuenyo0(int numLecturas) {
          // STEP 1: create mock object
          DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
@@ -439,24 +460,28 @@ public class ronQI2SilverTest {
         // STEP 4: asserting
         assertFalse(result);
     }
+}
 
-    @DisplayName("Revisa si un dispositivo está conectado correctamente")
-    @Test
-    public void testDispositivoConectado() {
-        // STEP 1: create mock object
-        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
-        // STEP 2: stubbing
-        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
-        when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
+@DisplayName("Revisa si un dispositivo está conectado correctamente")
+@Test
+public void testDispositivoConectado() {
+    // STEP 1: create mock object
+    DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
-        // STEP 3: using the mocked object
-        RonQI2Silver ronQi2Silver = new RonQI2Silver();
-        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
-        when(ronQi2Silver.estaConectado()).thenReturn(true);
-        boolean result = ronQi2Silver.estaConectado();
+    // STEP 2: stubbing
+    when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+    when(mockedDispositivo.conectarSensorSonido()).thenReturn(true);
 
-        // STEP 4: asserting
-        assertTrue(result);
-    }
+    // STEP 3: using the mocked object
+    RonQI2Silver ronQi2Silver = new RonQI2Silver();
+    ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+    when(ronQi2Silver.estaConectado()).thenReturn(true);
+    boolean result = ronQi2Silver.estaConectado();
+
+    // STEP 4: asserting
+    assertTrue(result);
+}
+     
+
 }
