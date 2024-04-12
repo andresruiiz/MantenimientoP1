@@ -133,8 +133,8 @@ public class ronQI2SilverTest {
         assertFalse(result);
 
         // STEP 5: optional -> verifying
-        verify(mockedDispositivo, times(0)).conectarSensorPresion();
-        verify(mockedDispositivo, times(0)).conectarSensorSonido();
+        verify(mockedDispositivo, times(1)).conectarSensorPresion();
+        verify(mockedDispositivo, times(1)).conectarSensorSonido();
     }
 
 
