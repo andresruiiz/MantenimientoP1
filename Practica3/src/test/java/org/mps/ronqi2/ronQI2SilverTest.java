@@ -84,7 +84,7 @@ public class ronQI2SilverTest {
 
     @DisplayName("Cuando se inicializa de forma incorrecta y no se conecta el Sensor, entonces result es False")
     @Test
-    public void testInicializar2() {
+    public void testInicializar3() {
         // STEP 1: create mock object
         DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
@@ -194,11 +194,37 @@ public class ronQI2SilverTest {
      * Usa el ParameterizedTest para realizar un número de lecturas previas a calcular si hay apnea o no (por ejemplo 4, 5 y 10 lecturas).
      * https://junit.org/junit5/docs/current/user-guide/index.html#writing-tests-parameterized-tests
      */
-    
+
+     @DisplayName("Evaluar apnea con diferentes números de lecturas previas")
+     @ParameterizedTest
+     @ValueSource(ints = {4, 5, 10})
+     public void testEvaluarApneaSuenyo(int numLecturas) {
+         // STEP 1: create mock object
+         DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+         // STEP 2: stubbing
+         when(mockedDispositivo.leerSensorPresion()).thenReturn(10.0f);
+         when(mockedDispositivo.leerSensorSonido()).thenReturn(20.0f);
+
+         // STEP 3: using the mocked object
+         RonQI2Silver ronQi2Silver = new RonQI2Silver();
+         ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+
+         // Perform the specified number of readings
+         for (int i = 0; i < numLecturas; i++) {
+             ronQi2Silver.obtenerNuevaLectura();
+         }
+
+         boolean result = ronQi2Silver.evaluarApneaSuenyo();
+
+         // STEP 4: asserting
+         // Add your assertions here
+        assertTrue(result);
+     }
      
     @DisplayName("Si se realizan 5 lecturas con valores por debajo de los umbrales, no se considera que hay una apnea en proceso")
     @Test
-    public void testEvaluarApneaSuenyo() {
+    public void testEvaluarApneaSuenyo1() {
         // STEP 1: create mock object
         DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
 
