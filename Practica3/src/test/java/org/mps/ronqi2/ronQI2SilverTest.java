@@ -14,7 +14,8 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mps.dispositivo.DispositivoSilver;
 
 public class ronQI2SilverTest {
@@ -300,7 +301,7 @@ public class ronQI2SilverTest {
 
          // STEP 4: asserting
          // Add your assertions here
-        assertTrue(result);
+        assertFalse(result);
      }
      
     @DisplayName("Si se realizan 5 lecturas con valores por debajo de los umbrales, no se considera que hay una apnea en proceso")
