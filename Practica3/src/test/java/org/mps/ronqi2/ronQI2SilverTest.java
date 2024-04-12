@@ -114,6 +114,28 @@ public class ronQI2SilverTest {
         verify(mockedDispositivo, times(0)).conectarSensorSonido();
     }
     
+    @DisplayName("Cuando se reconecta un dispositivo y falla un conectarSensor, no se reconectan ambos sensores")
+    @Test
+    public void testReconectar3() {
+        // STEP 1: create mock object
+        DispositivoSilver mockedDispositivo = mock(DispositivoSilver.class);
+
+        // STEP 2: stubbing
+        when(mockedDispositivo.conectarSensorPresion()).thenReturn(true);
+        when(mockedDispositivo.conectarSensorSonido()).thenReturn(false);
+
+        // STEP 3: using the mocked object
+        RonQI2Silver ronQi2Silver = new RonQI2Silver();
+        ronQi2Silver.anyadirDispositivo(mockedDispositivo);
+        boolean result = ronQi2Silver.reconectar();
+
+        // STEP 4: asserting
+        assertFalse(result);
+
+        // STEP 5: optional -> verifying
+        verify(mockedDispositivo, times(0)).conectarSensorPresion();
+        verify(mockedDispositivo, times(0)).conectarSensorSonido();
+    }
 
 
 
