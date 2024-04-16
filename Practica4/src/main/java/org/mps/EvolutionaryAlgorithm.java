@@ -62,8 +62,13 @@ public class EvolutionaryAlgorithm {
             for (int i = 0; i < population.length; i += 2) {
                 // Seleccionamos dos individuos de la población actual
                 int[] parent1 = selectionOperator.select(population[i]);
-                int[] parent2 = selectionOperator.select(population[i + 1]);
-
+                int[] parent2;
+                if(i+1 >= population.length){
+                    parent2 = null;
+                }else{
+                    parent2 = selectionOperator.select(population[i + 1]);
+                }
+                
                 // Aplicamos el operador de cruce para generar dos descendientes
                 int[][] offspring = crossoverOperator.crossover(parent1, parent2);
                 offspringPopulation[i] = offspring[0];
