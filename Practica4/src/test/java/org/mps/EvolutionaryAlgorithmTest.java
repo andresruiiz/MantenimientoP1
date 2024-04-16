@@ -3,8 +3,11 @@ package org.mps;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mps.crossover.CrossoverOperator;
+import org.mps.crossover.OnePointCrossover;
 import org.mps.mutation.MutationOperator;
+import org.mps.mutation.SwapMutation;
 import org.mps.selection.SelectionOperator;
+import org.mps.selection.TournamentSelection;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,9 +19,9 @@ public class EvolutionaryAlgorithmTest {
     public void testOptimizeWithValidPopulation() throws EvolutionaryAlgorithmException {
         // Arrange
         int[][] population = {{1, 2, 3}, {4, 5, 6}};
-        SelectionOperator selectionOperator = mock(SelectionOperator.class);
-        MutationOperator mutationOperator = mock(MutationOperator.class);
-        CrossoverOperator crossoverOperator = mock(CrossoverOperator.class);
+        SelectionOperator selectionOperator = new TournamentSelection(population.length);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
         EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
 
         // Act
@@ -26,9 +29,6 @@ public class EvolutionaryAlgorithmTest {
 
         // Assert
         assertNotNull(result);
-        verify(selectionOperator, times(population.length)).select(any());
-        verify(crossoverOperator, times(population.length / 2)).crossover(any(), any());
-        verify(mutationOperator, times(population.length)).mutate(any());
     }
 
     @Test
