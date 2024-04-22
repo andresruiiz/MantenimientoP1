@@ -202,4 +202,18 @@ public class EvolutionaryAlgorithmTest {
         // Act & Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
     }
+
+    @Test
+    @DisplayName("Prueba con una población con individuos de distinto tamaño")
+    public void testOptimizeWithIndividualsOfDifferentSizes() throws EvolutionaryAlgorithmException{
+        // Arrange
+        int[][] population = {{1, 2, 3}, {4, 5}};
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
+    }
 }
