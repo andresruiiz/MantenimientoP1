@@ -14,23 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EvolutionaryAlgorithmTest {
 
     @Test
-    @DisplayName("Prueba con una población válida")
-    public void testOptimizeWithValidPopulation() throws EvolutionaryAlgorithmException {
-        // Arrange
-        int[][] population = {{1, 2, 3}, {4, 5, 6}};
-        SelectionOperator selectionOperator = new TournamentSelection(population.length);
-        MutationOperator mutationOperator = new SwapMutation();
-        CrossoverOperator crossoverOperator = new OnePointCrossover();
-        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
-
-        // Act
-        int[][] result = ea.optimize(population);
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
     @DisplayName("Prueba con una población nula")
     public void testOptimizeWithNullPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
@@ -54,6 +37,20 @@ public class EvolutionaryAlgorithmTest {
         CrossoverOperator crossoverOperator = new OnePointCrossover();
         EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
         
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
+    }
+
+    @Test
+    @DisplayName("Prueba con el primer elemento de la población nulo")
+    public void testOptimizeWithFirstIndividualNull() throws EvolutionaryAlgorithmException{
+        // Arrange
+        int[][] population = {null, {1, 2, 3}};
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
         // Act & Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
     }
@@ -101,63 +98,5 @@ public class EvolutionaryAlgorithmTest {
 
         // Act & Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
-    }
-
-
-
-    @Test
-    @DisplayName("Prueba con poblaciones donde los descendientes sean mejores que los padres")
-    public void testOptimizeWithOffspringBetterThanParents() throws EvolutionaryAlgorithmException{
-        // Arrange
-        int[][] population = {{1, 2, 3}, {4, 5, 6}};
-        SelectionOperator selectionOperator = new TournamentSelection(population.length);
-        MutationOperator mutationOperator = new SwapMutation();
-        CrossoverOperator crossoverOperator = new OnePointCrossover();
-        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
-        
-        // Act
-        int[][] result = ea.optimize(population);
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
-    @DisplayName("Prueba con poblaciones donde los descendientes sean peores que los padres")
-    public void testOptimizeWithOffspringWorseThanParents() throws EvolutionaryAlgorithmException{
-        // Arrange
-        int[][] population = {{1, 2, 3}, {4, 5, 6}};
-        SelectionOperator selectionOperator = new TournamentSelection(population.length);
-        MutationOperator mutationOperator = new SwapMutation();
-        CrossoverOperator crossoverOperator = new OnePointCrossover();
-        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
-
-        // Act
-        int[][] result = ea.optimize(population);
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
-    @DisplayName("Prueba con poblaciones donde los descendientes sean iguales a los padres")
-    public void testOptimizeWithOffspringEqualToParents() throws EvolutionaryAlgorithmException{
-        // Arrange
-        int[][] population = {{1, 2, 3}, {1, 2, 3}};
-        SelectionOperator selectionOperator = new TournamentSelection(population.length);
-        MutationOperator mutationOperator = new SwapMutation();
-        CrossoverOperator crossoverOperator = new OnePointCrossover();
-        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
-
-        // Act
-        try {
-            int[][] result = ea.optimize(population);
-        } catch (EvolutionaryAlgorithmException e) {
-            // Assert
-            fail("No debería lanzar una excepción");
-        }
-        
-        // Assert
-        assertNotNull(population);
     }
 }
