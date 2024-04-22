@@ -14,6 +14,67 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EvolutionaryAlgorithmTest {
 
     @Test
+    @DisplayName("Prueba constructor con argumentos correctos")
+    public void testConstructorWithValidArguments() throws EvolutionaryAlgorithmException {
+        // Arrange
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+
+        // Act
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Assert
+        assertNotNull(ea);
+    }
+
+    @Test
+    @DisplayName("Prueba constructor con operador de selección nulo")
+    public void testConstructorWithNullSelectionOperator() {
+        // Arrange
+        SelectionOperator selectionOperator = null;
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator));
+    }
+
+    @Test
+    @DisplayName("Prueba constructor con operador de mutación nulo")
+    public void testConstructorWithNullMutationOperator() throws EvolutionaryAlgorithmException {
+        // Arrange
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = null;
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator));
+    }
+
+    @Test
+    @DisplayName("Prueba constructor con operador de cruce nulo")
+    public void testConstructorWithNullCrossoverOperator() throws EvolutionaryAlgorithmException {
+        // Arrange
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = null;
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator));
+    }
+
+    @Test
+    @DisplayName("Prueba con tamaño del torneo igual a 0")
+    public void testWithTournamentSizeZero() throws EvolutionaryAlgorithmException {
+        // Arrange
+        int tournamentSize = 0;
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> new TournamentSelection(tournamentSize));
+    }
+
+    @Test
     @DisplayName("Prueba con una población nula")
     public void testOptimizeWithNullPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
@@ -46,6 +107,20 @@ public class EvolutionaryAlgorithmTest {
     public void testOptimizeWithFirstIndividualNull() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {null, {1, 2, 3}};
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
+    }
+
+    @Test
+    @DisplayName("Prueba con una población con el primer individuo vacío")
+    public void testOptimizeWithFirstIndividualEmpty() throws EvolutionaryAlgorithmException{
+        // Arrange
+        int[][] population = {{}, {1, 2, 3}};
         SelectionOperator selectionOperator = new TournamentSelection(2);
         MutationOperator mutationOperator = new SwapMutation();
         CrossoverOperator crossoverOperator = new OnePointCrossover();
@@ -92,6 +167,34 @@ public class EvolutionaryAlgorithmTest {
         // Arrange
         int[][] population = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         SelectionOperator selectionOperator = new TournamentSelection(population.length);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
+    }
+
+    @Test
+    @DisplayName("Prueba con una población con un array vacío")
+    public void testOptimizeWithEmptyIndividual() throws EvolutionaryAlgorithmException{
+        // Arrange
+        int[][] population = {{1, 2, 3}, {}};
+        SelectionOperator selectionOperator = new TournamentSelection(2);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
+    }
+
+    @Test
+    @DisplayName("Prueba con una población de un solo individuo")
+    public void testOptimizeWithSingleIndividualPopulation() throws EvolutionaryAlgorithmException{
+        // Arrange
+        int[][] population = {{1, 2, 3}};
+        SelectionOperator selectionOperator = new TournamentSelection(2);
         MutationOperator mutationOperator = new SwapMutation();
         CrossoverOperator crossoverOperator = new OnePointCrossover();
         EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
