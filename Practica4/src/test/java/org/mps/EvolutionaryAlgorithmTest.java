@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EvolutionaryAlgorithmTest {
 
     @Test
-    @DisplayName("Prueba constructor con argumentos correctos")
+    @DisplayName("Cuando se llama al constructor con argumentos válidos, entonces se crea una instancia de EvolutionaryAlgorithm")
     public void testConstructorWithValidArguments() throws EvolutionaryAlgorithmException {
         // Arrange
         SelectionOperator selectionOperator = new TournamentSelection(2);
@@ -29,7 +29,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba constructor con operador de selección nulo")
+    @DisplayName("Cuando se llama al constructor con un operador de selección nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testConstructorWithNullSelectionOperator() {
         // Arrange
         SelectionOperator selectionOperator = null;
@@ -41,7 +41,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba constructor con operador de mutación nulo")
+    @DisplayName("Cuando se llama al constructor con un operador de mutación nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testConstructorWithNullMutationOperator() throws EvolutionaryAlgorithmException {
         // Arrange
         SelectionOperator selectionOperator = new TournamentSelection(2);
@@ -53,7 +53,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba constructor con operador de cruce nulo")
+    @DisplayName("Cuando se llama al constructor con un operador de cruce nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testConstructorWithNullCrossoverOperator() throws EvolutionaryAlgorithmException {
         // Arrange
         SelectionOperator selectionOperator = new TournamentSelection(2);
@@ -65,7 +65,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con tamaño del torneo igual a 0")
+    @DisplayName("Cuando se crea un TournamentSelection con un tamaño de torneo no válido, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testWithTournamentSizeZero() throws EvolutionaryAlgorithmException {
         // Arrange
         int tournamentSize = 0;
@@ -75,7 +75,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población nula")
+    @DisplayName("Cuando se optimiza una población nula, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithNullPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = null;
@@ -89,7 +89,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población vacía")
+    @DisplayName("Cuando se optimiza una población vacía, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithEmptyPopulation() throws EvolutionaryAlgorithmException {
         // Arrange
         int[][] population = {};
@@ -103,7 +103,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con el primer elemento de la población nulo")
+    @DisplayName("Cuando se optimiza una población con el primer individuo nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithFirstIndividualNull() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {null, {1, 2, 3}};
@@ -117,7 +117,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población con el primer individuo vacío")
+    @DisplayName("Cuando se optimiza una población con el primer individuo vacío, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithFirstIndividualEmpty() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{}, {1, 2, 3}};
@@ -131,7 +131,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población donde al menos un individuo sea nulo")
+    @DisplayName("Cuando se optimiza una población con el último individuo nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithNullIndividualInPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}, null};
@@ -145,7 +145,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población de tamaño par")
+    @DisplayName("Cuando se optimiza una población de tamaño par, entonces se devuelve una población de individuos")
     public void testOptimizeWithEvenSizedPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}, {4, 5, 6}};
@@ -162,7 +162,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población de tamaño impar")
+    @DisplayName("Cuando se optimiza una población de tamaño impar, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithOddSizedPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -176,7 +176,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población con un array vacío")
+    @DisplayName("Cuando se optimiza una población con un individuo vacío, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithEmptyIndividual() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}, {}};
@@ -190,7 +190,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población de un solo individuo")
+    @DisplayName("Cuando se optimiza una población con un único individuo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithSingleIndividualPopulation() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}};
@@ -204,7 +204,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba con una población con individuos de distinto tamaño")
+    @DisplayName("Cuando se optimiza una población con individuos de diferente tamaño, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testOptimizeWithIndividualsOfDifferentSizes() throws EvolutionaryAlgorithmException{
         // Arrange
         int[][] population = {{1, 2, 3}, {4, 5}};
@@ -220,7 +220,7 @@ public class EvolutionaryAlgorithmTest {
 
     //Esta es la unica manera de probar que la excepcion se lanza ya que si un individuo es nulo por el metodo optimize no se llega a llamar al metodo mutate.
     @Test
-    @DisplayName("Prueba SwapMutation con un individuo nulo")
+    @DisplayName("Cuando se llama al método mutate con un individuo nulo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testMutateWithNullIndividual() throws EvolutionaryAlgorithmException {
         // Arrange
         MutationOperator mutationOperator = new SwapMutation();
@@ -231,7 +231,7 @@ public class EvolutionaryAlgorithmTest {
     }
 
     @Test
-    @DisplayName("Prueba a crear un torneo con un tamaño de poblacion menor a este")
+    @DisplayName("Cuando se crea un torneo con un tamaño de población menor que el tamaño del torneo, entonces se lanza una excepción de tipo EvolutionaryAlgorithmException")
     public void testTournamentSelectionWithPopulationSizeLessThanTournamentSize() throws EvolutionaryAlgorithmException {
         // Arrange
         SelectionOperator selectionOperator = new TournamentSelection(5);
