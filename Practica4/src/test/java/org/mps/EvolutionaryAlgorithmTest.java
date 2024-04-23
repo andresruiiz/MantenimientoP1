@@ -216,4 +216,34 @@ public class EvolutionaryAlgorithmTest {
         // Act & Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(population));
     }
+
+
+    //Esta es la unica manera de probar que la excepcion se lanza ya que si un individuo es nulo por el metodo optimize no se llega a llamar al metodo mutate.
+    @Test
+    @DisplayName("Prueba SwapMutation con un individuo nulo")
+    public void testMutateWithNullIndividual() throws EvolutionaryAlgorithmException {
+        // Arrange
+        MutationOperator mutationOperator = new SwapMutation();
+        int[] individual = null;
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> mutationOperator.mutate(individual));
+    }
+
+    @Test
+    @DisplayName("Prueba a crear un torneo con un tamaño de poblacion menor a este")
+    public void testTournamentSelectionWithPopulationSizeLessThanTournamentSize() throws EvolutionaryAlgorithmException {
+        // Arrange
+        SelectionOperator selectionOperator = new TournamentSelection(5);
+        MutationOperator mutationOperator = new SwapMutation();
+        CrossoverOperator crossoverOperator = new OnePointCrossover();
+        EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+        int[] population = {1, 2, 3};
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> ea.optimize(new int[][]{population}));
+    }
+
+    
+
 }
