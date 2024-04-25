@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.Iterator;
+
 public class ArrayBoundedQueueTest {
 
     private ArrayBoundedQueue<Integer> queue;
@@ -327,6 +329,38 @@ public class ArrayBoundedQueueTest {
             }
             //Assert
             assertThat(actual).isEqualTo(0);
+        }
+        
+        @Test
+        @DisplayName("Test for iterator method with not empty queue")
+        public void testIteratorWithNotEmptyQueue(){
+            // Arrange
+            int actual = 0;
+            Iterator<Integer> iterator = queue.iterator();
+            queue.put(5);
+            // Act
+            while(iterator.hasNext()){
+                actual = iterator.next();
+            }
+            // Assert
+            assertThat(actual).isEqualTo(5);
+        }
+
+        @Test
+        @DisplayName("Test for iterator method with full queue")
+        public void testIteratorWithFullQueue(){
+            // Arrange
+            int actual = 0;
+            Iterator<Integer> iterator = queue.iterator();
+            for(int i = 0; i < 5; i++){
+                queue.put(i);
+            }
+            // Act
+            while(iterator.hasNext()){
+                actual = iterator.next();
+            }
+            // Assert
+            assertThat(actual).isEqualTo(4);
         }
     }
 
