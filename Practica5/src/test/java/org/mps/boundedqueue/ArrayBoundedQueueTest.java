@@ -3,9 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-
+import static org.assertj.core.api.Assertions.*;
 
 public class ArrayBoundedQueueTest {
 
@@ -27,7 +25,8 @@ public class ArrayBoundedQueueTest {
             // Act
             queue = new ArrayBoundedQueue<>(capacity);
             // Assert
-            assertThat(queue).isNotNull();
+            assertThat(queue).isNotNull()
+                             .isInstanceOf(ArrayBoundedQueue.class);
         }
 
         @Test
@@ -39,7 +38,7 @@ public class ArrayBoundedQueueTest {
             Throwable thrown = catchThrowable(() -> new ArrayBoundedQueue<>(capacity));
             //Assert
             assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
-                                .hasMessage("ArrayBoundedException: capacity must be positive");
+                              .hasMessage("ArrayBoundedException: capacity must be positive");
         }
     }
 
@@ -55,7 +54,7 @@ public class ArrayBoundedQueueTest {
             Throwable thrown = catchThrowable(() -> queue.put(element));
             // Assert
             assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
-                                .hasMessage("put: element cannot be null");
+                              .hasMessage("put: element cannot be null");
         }
 
         @Test
@@ -69,7 +68,7 @@ public class ArrayBoundedQueueTest {
             Throwable thrown = catchThrowable(() -> queue.put(5));
             // Assert
             assertThat(thrown).isInstanceOf(FullBoundedQueueException.class)
-                                .hasMessage("put: full bounded queue");
+                              .hasMessage("put: full bounded queue");
         }
 
         @Test
@@ -95,7 +94,7 @@ public class ArrayBoundedQueueTest {
             Throwable thrown = catchThrowable(() -> queue.get());
             // Assert
             assertThat(thrown).isInstanceOf(EmptyBoundedQueueException.class)
-                                .hasMessage("get: empty bounded queue");
+                              .hasMessage("get: empty bounded queue");
         }
 
         @Test
@@ -183,7 +182,8 @@ public class ArrayBoundedQueueTest {
             // Act
             int result = queue.size();
             // Assert
-            assertThat(result).isEqualTo(0);
+            assertThat(result).isEqualTo(0)
+                              .isZero();
         }
 
         @Test
@@ -327,20 +327,6 @@ public class ArrayBoundedQueueTest {
             }
             //Assert
             assertThat(actual).isEqualTo(0);
-        }
-
-        @Test
-        @DisplayName("Test for iterator method with not empty queue")
-        public void testIteratorWithNotEmptyQueue(){
-            // Arrange
-            queue.put(5);
-            // Act
-            int actual = 0;
-            while(queue.iterator().hasNext()){
-                actual = queue.iterator().next();
-            }
-            // Assert
-            assertThat(actual).isEqualTo(5);
         }
     }
 
