@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayBoundedQueueTest {
 
@@ -362,7 +363,17 @@ public class ArrayBoundedQueueTest {
             // Assert
             assertThat(actual).isEqualTo(4);
         }
-    }
 
-    
+        @Test
+        @DisplayName("Test for iterator next method with no next element")
+        public void testIteratorNextWithNoNextElement(){
+            // Arrange
+            Iterator<Integer> iterator = queue.iterator();
+            // Act
+            Throwable thrown = catchThrowable(() -> iterator.next());
+            // Assert
+            assertThat(thrown).isInstanceOf(NoSuchElementException.class)
+                              .hasMessage("next: bounded queue iterator exhausted");
+        }
+    }
 }
