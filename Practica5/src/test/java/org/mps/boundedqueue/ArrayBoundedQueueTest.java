@@ -1,3 +1,8 @@
+/*
+ * @author 1: Nicoló Melley
+ * @author 2: Andrés Ruiz Sánchez
+ */
+
 package org.mps.boundedqueue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +26,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for Constructor")
     class ConstructorTest{
         @Test
-        @DisplayName("Test for Constructor with positive capacity")
-        public void testConstructorWithPositiveCapacity(){
+        @DisplayName("Test for Constructor with positive capacity creates a new ArrayBoundedQueue object")
+        public void testConstructorWithPositiveCapacityCreatesQueue(){
             // Arrange
             int capacity = 5;
             // Act
@@ -33,8 +38,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for Constructor with negative capacity")
-        public void testConstructorWithNegativeCapacity(){
+        @DisplayName("Test for Constructor with negative capacity throws IllegalArgumentException")
+        public void testConstructorWithNegativeCapacityThrowsException(){
             // Arrange
             int capacity = -5;
             // Act 
@@ -49,8 +54,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for put method")
     class PutTest{
         @Test
-        @DisplayName("Test for put method with null element")
-        public void testPutWithNullElement(){
+        @DisplayName("Test for put method with null element throws IllegalArgumentException")
+        public void testPutWithNullElementThrowsException(){
             // Arrange
             Integer element = null;
             // Act
@@ -61,8 +66,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for put method with full queue")
-        public void testPutWithFullQueue(){
+        @DisplayName("Test for put method with full queue throws FullBoundedQueueException")
+        public void testPutWithFullQueueThrowsException(){
             // Arrange
             for(int i = 0; i < 5; i++){
                 queue.put(i);
@@ -75,14 +80,15 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for put method with valid element")
-        public void testPutWithValidElement(){
+        @DisplayName("Test for put method with valid element appends element and increases the size of the queue by 1")
+        public void testPutWithValidElementAppendsElement(){
             // Arrange
             int element = 5;
             // Act
             queue.put(element);
             // Assert
             assertThat(queue.size()).isEqualTo(1);
+            assertThat(queue.getLast()).isEqualTo(1);
         }
     }
 
@@ -90,8 +96,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for get method")
     class GetTest{
         @Test
-        @DisplayName("Test for get method with empty queue")
-        public void testGetWithEmptyQueue(){
+        @DisplayName("Test for get method with empty queue throws EmptyBoundedQueueException")
+        public void testGetWithEmptyQueueThrowsException(){
             // Arrange
             // Act
             Throwable thrown = catchThrowable(() -> queue.get());
@@ -101,14 +107,15 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for get method with valid queue")
-        public void testGetWithValidQueue(){
+        @DisplayName("Test for get method with valid queue removes the first element and decreases the size of the queue by 1")
+        public void testGetWithValidQueueGetsElement(){
             // Arrange
             queue.put(5);
             // Act
             int element = queue.get();
             // Assert
             assertThat(element).isEqualTo(5);
+            assertThat(queue.size()).isEqualTo(0);
         }
     }
 
@@ -116,8 +123,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for isFull method")
     class IsFullTest{
         @Test
-        @DisplayName("Test for isFull method with empty queue")
-        public void testIsFullWithEmptyQueue(){
+        @DisplayName("Test for isFull method with empty queue returns false")
+        public void testIsFullWithEmptyQueueReturnsFalse(){
             // Arrange
             // Act
             boolean result = queue.isFull();
@@ -126,8 +133,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for isFull method with full queue")
-        public void testIsFullWithFullQueue(){
+        @DisplayName("Test for isFull method with full queue returns true")
+        public void testIsFullWithFullQueueReturnsTrue(){
             // Arrange
             for(int i = 0; i < 5; i++){
                 queue.put(i);
@@ -139,8 +146,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for isFull method with valid not full queue")
-        public void testIsFullWithValidQueue(){
+        @DisplayName("Test for isFull method with valid not full queue returns false")
+        public void testIsFullWithValidQueueReturnsFalse(){
             // Arrange
             queue.put(5);
             // Act
@@ -154,8 +161,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for isEmpty method")
     class IsEmptyTest{
         @Test
-        @DisplayName("Test for isEmpty method with empty queue")
-        public void testIsEmptyWithEmptyQueue(){
+        @DisplayName("Test for isEmpty method with empty queue returns true")
+        public void testIsEmptyWithEmptyQueueReturnsTrue(){
             // Arrange
             // Act
             boolean result = queue.isEmpty();
@@ -164,10 +171,23 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for isEmpty method with not empty queue")
-        public void testIsEmptyWithNotEmptyQueue(){
+        @DisplayName("Test for isEmpty method with not empty queue returns false")
+        public void testIsEmptyWithNotEmptyQueueReturnsFalse(){
             // Arrange
             queue.put(5);
+            // Act
+            boolean result = queue.isEmpty();
+            // Assert
+            assertThat(result).isFalse();
+        }
+
+        @Test
+        @DisplayName("Test for isEmpty method with full queue returns false")
+        public void testIsEmptyWithFullQueueReturnsFalse(){
+            // Arrange
+            for(int i = 0; i < 5; i++){
+                queue.put(i);
+            }
             // Act
             boolean result = queue.isEmpty();
             // Assert
@@ -179,8 +199,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for size method")
     class SizeTest{
         @Test
-        @DisplayName("Test for size method with empty queue")
-        public void testSizeWithEmptyQueue(){
+        @DisplayName("Test for size method with empty queue returns 0")
+        public void testSizeWithEmptyQueueReturnsZero(){
             // Arrange
             // Act
             int result = queue.size();
@@ -190,8 +210,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for size method with not empty queue")
-        public void testSizeWithNotEmptyQueue(){
+        @DisplayName("Test for size method with not empty queue returns correct size")
+        public void testSizeWithNotEmptyQueueReturnsCorrectSize(){
             // Arrange
             queue.put(5);
             // Act
@@ -201,8 +221,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for size method with full queue")
-        public void testSizeWithFullQueue(){
+        @DisplayName("Test for size method with full queue returns correct size")
+        public void testSizeWithFullQueueReturnsCorrectSize(){
             // Arrange
             for(int i = 0; i < 5; i++){
                 queue.put(i);
@@ -218,18 +238,19 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for getFirst method")
     class GetFirstTest{
         @Test
-        @DisplayName("Test for getFirst method with empty queue")
-        public void testGetFirstWithEmptyQueue(){
+        @DisplayName("Test for getFirst method with empty queue returns 0")
+        public void testGetFirstWithEmptyQueueReturnsZero(){
             // Arrange
             // Act
             int result = queue.getFirst();
             // Assert
-            assertThat(result).isEqualTo(0);
+            assertThat(result).isEqualTo(0)
+                              .isZero();
         }
 
         @Test
-        @DisplayName("Test for getFirst method with not empty queue")
-        public void testGetFirstWithNotEmptyQueue(){
+        @DisplayName("Test for getFirst method with not empty queue returns first")
+        public void testGetFirstWithNotEmptyQueueReturnsFirst(){
             // Arrange
             queue.put(5);
             // Act
@@ -239,8 +260,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for getFirst method with first element null")
-        public void testGetFirstWithFirstElementNull(){
+        @DisplayName("Test for getFirst method with first element null returns first")
+        public void testGetFirstWithFirstElementNullReturnsFirst(){
             // Arrange
             queue.put(5);
             queue.get();
@@ -251,8 +272,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for getFirst method with full queue")
-        public void testGetFirstWithFullQueue(){
+        @DisplayName("Test for getFirst method with full queue returns first")
+        public void testGetFirstWithFullQueueReturnsFirst(){
             // Arrange
             for(int i = 0; i < 5; i++){
                 queue.put(i);
@@ -268,8 +289,8 @@ public class ArrayBoundedQueueTest {
     @DisplayName("Test for getLast method")
     class GetLastTest{
         @Test
-        @DisplayName("Test for getLast method with empty queue")
-        public void testGetLastWithEmptyQueue(){
+        @DisplayName("Test for getLast method with empty queue returns 0")
+        public void testGetLastWithEmptyQueueReturnsZero(){
             // Arrange
             // Act
             int result = queue.getLast();
@@ -278,8 +299,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for getLast method with not empty queue")
-        public void testGetLastWithNotEmptyQueue(){
+        @DisplayName("Test for getLast method with not empty queue returns last")
+        public void testGetLastWithNotEmptyQueueReturnsLast(){
             // Arrange
             queue.put(5);
             // Act
@@ -289,8 +310,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for getLast method with full queue")
-        public void testGetLastWithFullQueue(){
+        @DisplayName("Test for getLast method with full queue returns last")
+        public void testGetLastWithFullQueueReturnsLast(){
             // Arrange
             for(int i = 0; i < 5; i++){
                 queue.put(i);
@@ -302,8 +323,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for getLast method with first element null")
-        public void testGetLastWithFirstElementNull(){
+        @DisplayName("Test for getLast method with first element null returns last")
+        public void testGetLastWithFirstElementNullReturnsLast(){
             // Arrange
             queue.put(5);
             queue.get();
@@ -319,8 +340,8 @@ public class ArrayBoundedQueueTest {
     class IteratorTest{
         
         @Test
-        @DisplayName("Test for iterator method with empty queue")
-        public void testIteratorWithEmptyQueue(){
+        @DisplayName("Test for iterator method with empty queue returns position 0")
+        public void testIteratorWithEmptyQueueReturnsZero(){
             //Arrange
 
             //Act
@@ -333,8 +354,8 @@ public class ArrayBoundedQueueTest {
         }
         
         @Test
-        @DisplayName("Test for iterator method with not empty queue")
-        public void testIteratorWithNotEmptyQueue(){
+        @DisplayName("Test for iterator method with not empty queue returns last position")
+        public void testIteratorWithNotEmptyQueueReturnsLastPosition(){
             // Arrange
             int actual = 0;
             Iterator<Integer> iterator = queue.iterator();
@@ -348,8 +369,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for iterator method with full queue")
-        public void testIteratorWithFullQueue(){
+        @DisplayName("Test for iterator method with full queue returns last position")
+        public void testIteratorWithFullQueueReturnsLastPosition(){
             // Arrange
             int actual = 0;
             Iterator<Integer> iterator = queue.iterator();
@@ -365,8 +386,8 @@ public class ArrayBoundedQueueTest {
         }
 
         @Test
-        @DisplayName("Test for iterator next method with no next element")
-        public void testIteratorNextWithNoNextElement(){
+        @DisplayName("Test for iterator next method with no next element throws NoSuchElementException")
+        public void testIteratorNextWithNoNextElementThrowsException(){
             // Arrange
             Iterator<Integer> iterator = queue.iterator();
             // Act
