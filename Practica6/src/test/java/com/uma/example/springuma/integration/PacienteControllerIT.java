@@ -17,7 +17,7 @@ import com.uma.example.springuma.model.Informe;
 import com.uma.example.springuma.integration.base.AbstractIntegration;
 
 
-class PacienteControllerMockMvcIT extends AbstractIntegration {
+class PacienteControllerIT extends AbstractIntegration {
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,7 +40,7 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(medico)));
 
-            return medico;
+        return medico;
     }
 
     public Paciente crearPaciente ()throws Exception
@@ -60,7 +60,7 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(paciente)));
 
-            return paciente;
+        return paciente;
     }
 
     @Test
@@ -84,10 +84,10 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
             
         // Obtenemos el Paciente
         this.mockMvc.perform(get("/paciente/{id}",paciente.getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value(paciente.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value(paciente.getDni()));
     }
 
     @Test
@@ -99,17 +99,17 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
         paciente.setDni("12345ABC");
 
         this.mockMvc.perform(put("/paciente")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(paciente)))
-        .andExpect(status().isNoContent())
-        .andExpect(status().is2xxSuccessful());
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(paciente)))
+            .andExpect(status().isNoContent())
+            .andExpect(status().is2xxSuccessful());
 
         // Obtenemos el Paciente
         this.mockMvc.perform(get("/paciente/{id}",paciente.getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value("12345ABC"));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value("12345ABC"));
     }
 
     @Test
@@ -119,10 +119,10 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
 
         // Obtenemos el Paciente
         this.mockMvc.perform(get("/paciente/{id}",paciente.getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value(paciente.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value(paciente.getDni()));
     }
 
     @Test
@@ -132,13 +132,13 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
 
         // Eliminar médico
         this.mockMvc.perform(delete("/paciente/{id}", paciente.getId()))
-        .andDo(print())
-        .andExpect(status().isOk());
+            .andDo(print())
+            .andExpect(status().isOk());
 
         // Obtenemos el Paciente en busca del error
         this.mockMvc.perform(get("/paciente/{id}", paciente.getId()))
-        .andDo(print())
-        .andExpect(status().isInternalServerError());
+            .andDo(print())
+            .andExpect(status().isInternalServerError());
 
     }
 
@@ -149,10 +149,10 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/paciente/medico/{id}", paciente.getMedico().getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$[0].dni").value(paciente.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$[0].dni").value(paciente.getDni()));
     }
 
     @Test
@@ -173,27 +173,27 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(paciente)));
 
-            Paciente paciente2 = new Paciente();
-            paciente2.setDni("1234ABCD");
-            paciente2.setNombre("juan");
-            paciente2.setEdad(0);
-            paciente2.setCita("21/12/2033");
-            paciente2.setId(2);
-            paciente2.setMedico(medico);
-            
-            // Crear paciente
-            this.mockMvc.perform(post("/paciente")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(paciente2)));
+        Paciente paciente2 = new Paciente();
+        paciente2.setDni("1234ABCD");
+        paciente2.setNombre("juan");
+        paciente2.setEdad(0);
+        paciente2.setCita("21/12/2033");
+        paciente2.setId(2);
+        paciente2.setMedico(medico);
+        
+        // Crear paciente
+        this.mockMvc.perform(post("/paciente")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(paciente2)));
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/paciente/medico/{id}", paciente.getMedico().getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$",hasSize(2)))
-        .andExpect(jsonPath("$[0].dni").value(paciente.getDni()))
-        .andExpect(jsonPath("$[1].dni").value(paciente2.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$",hasSize(2)))
+            .andExpect(jsonPath("$[0].dni").value(paciente.getDni()))
+            .andExpect(jsonPath("$[1].dni").value(paciente2.getDni()));
     }
 
     @Test
@@ -214,31 +214,31 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(paciente)));
 
-            Paciente paciente2 = new Paciente();
-            paciente2.setDni("1234ABCD");
-            paciente2.setNombre("juan");
-            paciente2.setEdad(0);
-            paciente2.setCita("21/12/2033");
-            paciente2.setId(2);
-            paciente2.setMedico(medico);
-            
-            // Crear paciente
-            this.mockMvc.perform(post("/paciente")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(paciente2)));
+        Paciente paciente2 = new Paciente();
+        paciente2.setDni("1234ABCD");
+        paciente2.setNombre("juan");
+        paciente2.setEdad(0);
+        paciente2.setCita("21/12/2033");
+        paciente2.setId(2);
+        paciente2.setMedico(medico);
+        
+        // Crear paciente
+        this.mockMvc.perform(post("/paciente")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(paciente2)));
 
         // Eliminamos uno de los dos pacientes
         this.mockMvc.perform(delete("/paciente/{id}", paciente.getId()))
-        .andDo(print())
-        .andExpect(status().isOk());
+            .andDo(print())
+            .andExpect(status().isOk());
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/paciente/medico/{id}", paciente2.getMedico().getId()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$",hasSize(1)))
-        .andExpect(jsonPath("$[0].dni").value(paciente2.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$",hasSize(1)))
+            .andExpect(jsonPath("$[0].dni").value(paciente2.getDni()));
 
     }
     
