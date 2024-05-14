@@ -27,7 +27,7 @@ import jakarta.annotation.PostConstruct;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ImagenControllerWebTestClientIT {
+class ImagenControllerIT {
 
     @LocalServerPort
     private Integer port;
