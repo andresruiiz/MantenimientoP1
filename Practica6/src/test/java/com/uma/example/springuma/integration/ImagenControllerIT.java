@@ -245,7 +245,7 @@ class ImagenControllerIT {
             .expectStatus().isCreated()
             .expectBody().returnResult();
 
-            File uploadFile = new File("./src/test/resources/no_healthty.png");
+        File uploadFile = new File("./src/test/resources/no_healthty.png");
 
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("image", new FileSystemResource(uploadFile));
