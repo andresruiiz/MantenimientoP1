@@ -223,7 +223,7 @@ class ImagenControllerIT {
         
         String prediction = result.getResponseBody().blockFirst();
         
-        assertTrue(prediction.startsWith("Not cancer (label 0)"));
+        assertEquals("{\"prediction\": \"Not cancer (label 0),", prediction.substring(0, 37));
     }
 
 
@@ -265,7 +265,7 @@ class ImagenControllerIT {
         
         String prediction = result.getResponseBody().blockFirst();
         
-        assertTrue(prediction.startsWith("Cancer (label 1)"));
+        assertEquals("{\"prediction\": \"Cancer (label 1),", prediction.substring(0, 33));
     }
 
 
