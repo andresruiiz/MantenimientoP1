@@ -8,12 +8,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uma.example.springuma.model.Paciente;
 import com.uma.example.springuma.model.Medico;
-import com.uma.example.springuma.model.Imagen;
-import com.uma.example.springuma.model.Informe;
 import com.uma.example.springuma.integration.base.AbstractIntegration;
 
 
@@ -65,7 +62,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Crear paciente")
-    void testCrearPaciente() throws Exception {
+    void crearPaciente_creaElPaciente() throws Exception {
         Paciente paciente = new Paciente();
         paciente.setDni("123ABC");
         paciente.setNombre("juan");
@@ -92,7 +89,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Actualizar paciente")
-    void testActualizarPaciente() throws Exception {
+    void actualizarPaciente_actualizaLaInformacion() throws Exception {
         Paciente paciente = crearPaciente();
 
         // Actualizar paciente
@@ -114,7 +111,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Obtener paciente")
-    void testObtenerPaciente() throws Exception {
+    void obtenerPaciente_devuelveElPaciente() throws Exception {
         Paciente paciente = crearPaciente();
 
         // Obtenemos el Paciente
@@ -127,7 +124,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Eliminar paciente")
-    void testEliminarPaciente() throws Exception {
+    void eliminarPaciente_eliminaElPaciente() throws Exception {
         Paciente paciente = crearPaciente();
 
         // Eliminar médico
@@ -144,7 +141,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Obtener paciente asignado a medico")
-    void testObtenerPacienteAsignado() throws Exception {
+    void obtenerPacienteAsignado_devuelveCorrectamenteElPaciente() throws Exception {
         Paciente paciente = crearPaciente();
 
         // Obtenemos el Medico
@@ -157,7 +154,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Obtener lista de pacientes asignados a un medico")
-    void testObtenerListaPacientesAsignados() throws Exception {
+    void obtenerListaPacientesAsignados_devuelveLosPacientes() throws Exception {
         Medico medico = crearMedico();
 
         Paciente paciente = new Paciente();
@@ -198,7 +195,7 @@ class PacienteControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Borrar paciente asignado a medico")
-    void testBorrarPacienteAsignado() throws Exception {
+    void borrarPacienteAsignado_borraElPaciente() throws Exception {
         Medico medico = crearMedico();
 
         Paciente paciente = new Paciente();
