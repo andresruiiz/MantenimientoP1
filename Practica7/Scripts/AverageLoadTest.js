@@ -3,10 +3,18 @@ import { check, sleep } from "k6";
 
 export const options = {
     stages: [
-    { duration: '5m', target: 1500 }, // subimos a un carga promedio de 1500 vu en 5 minutos
-    { duration: '20m', target: 1500 }, // no mantenemos a 2000 por 30 minutos
-    { duration: '5m', target: 0 }, // bajamos a 0VU
+    { duration: '5m', target: 3000 }, // subimos a una carga promedio del 50% del punto de rotura en 5 minutos
+    { duration: '20m', target: 3000 }, // nos mantenemos al 50% del punto de rotura durante 20 minutos
+    { duration: '5m', target: 0 }, // bajamos a 0 VUs
     ],
+    thresholds: {
+        http_req_failed: [
+            {
+                threshold: "rate<=0.01",
+                abortOnFail: true,
+            },
+        ],
+    },
 };
 
 export default () => {
