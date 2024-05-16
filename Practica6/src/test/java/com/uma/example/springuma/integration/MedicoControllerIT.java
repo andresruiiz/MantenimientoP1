@@ -45,7 +45,7 @@ class MedicoControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Crear médico")
-    void testCrearMedico() throws Exception {
+    void crearMedico_seHaceCorrectamente() throws Exception {
         Medico medico = new Medico();
         medico.setDni("123ABC");
         medico.setNombre("juan");
@@ -69,7 +69,7 @@ class MedicoControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Actualizar médico")
-    void testActualizarMedico() throws Exception {
+    void actualizarMedico_actualizaInformacion() throws Exception {
         Medico medico = crearMedico();
 
         // Actualizar médico
@@ -104,7 +104,7 @@ class MedicoControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Eliminar médico")
-    void testEliminarMedico() throws Exception {
+    void eliminarMedico_eliminaElMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Eliminar médico
@@ -120,7 +120,7 @@ class MedicoControllerIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Obtener médico por dni")
-    void testObtenerMedicoByDni() throws Exception {
+    void obtenerMedicoByDni_deuvleveElMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Obtenemos el Medico
