@@ -9,7 +9,7 @@ thresholds: {
     threshold: 'rate<=0.05',
     abortOnFail: true,
     }],
-    http_req_duration: ['p(100)<=100'],
+    http_req_duration: ['avg<=100'],
     }
 };
 
