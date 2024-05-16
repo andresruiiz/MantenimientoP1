@@ -17,7 +17,7 @@ import com.uma.example.springuma.model.Informe;
 import com.uma.example.springuma.integration.base.AbstractIntegration;
 
 
-class MedicoControllerMockMvcIT extends AbstractIntegration {
+class MedicoControllerIT extends AbstractIntegration {
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,20 +40,18 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(medico)));
 
-            return medico;
+        return medico;
     }
 
     @Test
     @DisplayName("Crear médico")
-    void testCrearMedico() throws Exception {
+    void crearMedico_seHaceCorrectamente() throws Exception {
         Medico medico = new Medico();
         medico.setDni("123ABC");
         medico.setNombre("juan");
         medico.setEspecialidad("Mamografias");
         medico.setId(1);
         
-
-
         // Crear médico
         this.mockMvc.perform(post("/medico")
             .contentType("application/json")
@@ -63,32 +61,32 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
             
         // Obtenemos el Medico
         this.mockMvc.perform(get("/medico/1"))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value(medico.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value(medico.getDni()));
     }
 
     @Test
     @DisplayName("Actualizar médico")
-    void testActualizarMedico() throws Exception {
+    void actualizarMedico_actualizaInformacion() throws Exception {
         Medico medico = crearMedico();
 
         // Actualizar médico
         medico.setDni("1234ABC");
 
         this.mockMvc.perform(put("/medico")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(medico)))
-        .andExpect(status().isNoContent())
-        .andExpect(status().is2xxSuccessful());
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(medico)))
+            .andExpect(status().isNoContent())
+            .andExpect(status().is2xxSuccessful());
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/medico/1"))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value("1234ABC"));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value("1234ABC"));
     }
 
     @Test
@@ -98,39 +96,38 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/medico/1"))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value(medico.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value(medico.getDni()));
     }
 
     @Test
     @DisplayName("Eliminar médico")
-    void testEliminarMedico() throws Exception {
+    void eliminarMedico_eliminaElMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Eliminar médico
         this.mockMvc.perform(delete("/medico/{id}", medico.getId()))
-        .andDo(print())
-        .andExpect(status().isOk());
+            .andDo(print())
+            .andExpect(status().isOk());
 
         // Obtenemos el Medico en busca del error
         this.mockMvc.perform(get("/medico/{id}", medico.getId()))
-        .andDo(print())
-        .andExpect(status().isInternalServerError());
-
+            .andDo(print())
+            .andExpect(status().isInternalServerError());
     }
 
     @Test
     @DisplayName("Obtener médico por dni")
-    void testObtenerMedicoByDni() throws Exception {
+    void obtenerMedicoByDni_deuvleveElMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Obtenemos el Medico
         this.mockMvc.perform(get("/medico/dni/{dni}",medico.getDni()))
-        .andDo(print())
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.dni").value(medico.getDni()));
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.dni").value(medico.getDni()));
     }
 }
