@@ -2,23 +2,14 @@ import http from "k6/http";
 import { check, sleep } from "k6";
 
 export const options = {
-  scenarios: {
-    breakpoint: {
-      preAllocatedVUs: 1000, //VUs alocados inicialmente
-      maxVUs: 1e7, //VUs maximo
-      stages: [
-        { duration: "10m", target: 100000 }, // just slowly ramp-up to a HUGE load
-      ],
-    },
-  },
-  thresholds: {
-    http_req_failed: [
-      {
-        threshold: "rate<=0.01",
-        abortOnFail: true,
-      },
+    stages: [
+    { duration: '10m', target: 100000 }, // just slowly ramp-up to a HUGE load
     ],
-  },
+    thresholds: {
+    http_req_failed: [{
+    threshold: 'rate<=0.01',
+    abortOnFail: true,
+    }]}
 };
 
 export default () => {
