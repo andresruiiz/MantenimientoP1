@@ -4,7 +4,6 @@ import { check, sleep } from "k6";
 export const options = {
   scenarios: {
     breakpoint: {
-      executor: "ramping-arrival-rate", // Incrementa la carga exponencial
       preAllocatedVUs: 1000, //VUs alocados inicialmente
       maxVUs: 1e7, //VUs maximo
       stages: [
