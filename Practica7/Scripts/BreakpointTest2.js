@@ -3,7 +3,7 @@ import { check, sleep } from "k6";
 
 export const options = {
     stages: [
-    { duration: '10m', target: 100000 }, // just slowly ramp-up to a HUGE load
+    { duration: '10m', target: 100000 },
     ],
     thresholds: {
     http_req_failed: [{
