@@ -3,8 +3,8 @@ import { sleep, check } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '2m', target: 3700 },
-        { duration: '2m', target: 0 },
+        { duration: '1m', target: 3700 },
+        { duration: '1m', target: 0 },
     ],
     thresholds: {
         http_req_failed: ['rate<0.005'],
