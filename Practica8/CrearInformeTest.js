@@ -43,13 +43,12 @@ export default async function () {
     const informeButton = page.locator('button[title="Añadir informe"]');
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), informeButton.click()]);
 
-    sleep(5);
     page.locator('textarea.mat-mdc-input-element.mdc-text-field__input').type('Informe de prueba');
-    sleep(10);
+    sleep(2);
 
     const saveButton = page.locator('button[name="save"]');
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), saveButton.click()]);
-    sleep(5);
+    sleep(2);
 
     check(page, {
   'informe': p => p.locator('span[name="content"]').textContent().includes('Informe de prueba'),

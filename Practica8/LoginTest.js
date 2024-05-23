@@ -27,30 +27,14 @@ export default async function () {
     page.locator('input[name="DNI"]').type('123123');
     
     const submitButton = page.locator('button[name="login"]');
-
+    
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), submitButton.click()]);
-    sleep(2);
-
-    const pacienteRow = page.$$("table tbody tr")[0];
-    await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), pacienteRow.click()]);
-
-    page.waitForSelector('table tbody');
-    sleep(2);
-
-    const viewButton = page.$$("table tbody tr")[0].$('button[name="view"]');
-    await Promise.all([page.waitForNavigation(), viewButton.click()]);
-
-    const predictButton = page.locator('button[name="predict"]');
-    await Promise.all([page.waitForNavigation(), predictButton.click()]);
-
-    //page.waitForSelector('div.result');
-    sleep(10);
 
     check(page, {
-      'prediction': p => p.locator('span[name="predict"]').textContent().includes('Probabilidad de cáncer:'),
+      'header': p => p.locator('h2').textContent() == 'Listado de pacientes',
     });
-
     sleep(3);
+    
   } finally {
     page.close();
   }

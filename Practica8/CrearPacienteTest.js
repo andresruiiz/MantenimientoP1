@@ -35,17 +35,17 @@ export default async function () {
     page.locator('input[name="dni"]').type('3');
     page.locator('input[name="nombre"]').type('PacienteTest');
     page.locator('input[name="edad"]').type('33');
-    page.locator('input[name="cita"]').type('APorLa33');
-    sleep(3); // Esperamos a que se cargue el modal
+    page.locator('input[name="cita"]').type('14/03/2033');
+    
+    sleep(3);
 
     const crearButton = page.locator('button[type="submit"]');
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), crearButton.click()]);
+    
     sleep(3);
 
+    let len = page.$$("table tbody tr").length;
 
-    let len = page.$$("table tbody tr").length; // Comprobamos que se ha añadido el paciente
-    console.log(len);
-    console.log(page.$$("table tbody tr")[len-1].$('td[name="dni"]').textContent());
     check(page, {
       'DNI created': p => parseInt(p.$$("table tbody tr")[len-1].$('td[name="dni"]').textContent()) == 3,
       'Nombre created': p => p.$$("table tbody tr")[len-1].$('td[name="nombre"]').textContent().includes('PacienteTest'), 
