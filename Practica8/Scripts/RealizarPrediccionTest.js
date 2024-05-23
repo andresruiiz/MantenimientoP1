@@ -29,6 +29,7 @@ export default async function () {
     const submitButton = page.locator('button[name="login"]');
 
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), submitButton.click()]);
+    sleep(2);
 
     const pacienteRow = page.$$("table tbody tr")[0];
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), pacienteRow.click()]);
@@ -36,16 +37,17 @@ export default async function () {
     page.waitForSelector('table tbody');
     sleep(2);
 
-    const viewButton = page.$$("table tbody tr")[len-1].$('input[name="view"]');
+    const viewButton = page.$$("table tbody tr")[0].$('button[name="view"]');
     await Promise.all([page.waitForNavigation(), viewButton.click()]);
 
     const predictButton = page.locator('button[name="predict"]');
     await Promise.all([page.waitForNavigation(), predictButton.click()]);
 
-    page.waitForSelector('span');
+    //page.waitForSelector('div.result');
+    sleep(10);
 
     check(page, {
-      'prediction': p => p.locator('span[name="predict"]').textContent() == 'Probabilidad de cáncer:',
+      'prediction': p => p.locator('span[name="predict"]').textContent().includes('Probabilidad de cáncer:'),
     });
 
     sleep(3);
