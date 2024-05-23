@@ -49,9 +49,10 @@ export default async function () {
 
     const saveButton = page.locator('button[name="save"]');
     await Promise.all([page.waitForNavigation({waitUntil: 'networkidle'}), saveButton.click()]);
+    sleep(5);
 
     check(page, {
-  'informe': p => p.locator('span.info-value').textContent().includes('Informe de prueba'),
+  'informe': p => p.locator('span[name="content"]').textContent().includes('Informe de prueba'),
 });
 
   } finally {
